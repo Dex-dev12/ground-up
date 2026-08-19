@@ -98,6 +98,22 @@ function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const goTo = (href) => (e) => {
+    e.preventDefault()
+    const target = document.querySelector(href)
+    if (!target) return
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  const goToMobile = (href) => (e) => {
+    e.preventDefault()
+    setOpen(false)
+    // Let the menu-close animation clear the viewport before scrolling
+    setTimeout(() => {
+      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 320)
+  }
+
   return (
     <>
       <nav
@@ -126,6 +142,7 @@ function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
+                onClick={goTo(link.href)}
                 className={`group relative text-sm font-medium tracking-tight pb-1 ${
                   scrolled ? 'text-ink/70 hover:text-primary' : 'text-white/90 hover:text-white'
                 } transition-colors`}
@@ -138,6 +155,7 @@ function Navbar() {
 
           <a
             href="#contact"
+            onClick={goTo('#contact')}
             className="hidden lg:inline-flex items-center gap-1.5 bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold border border-transparent hover:border-accent hover:-translate-y-0.5 shadow-lg shadow-primary/30 hover:shadow-accent/25 transition-all duration-500"
           >
             Enquire
@@ -190,7 +208,7 @@ function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                onClick={() => setOpen(false)}
+                onClick={goToMobile(link.href)}
                 className="font-display text-3xl font-semibold text-ink py-3 border-b border-divider"
               >
                 {link.label}
@@ -199,7 +217,7 @@ function Navbar() {
           </div>
           <a
             href="#contact"
-            onClick={() => setOpen(false)}
+            onClick={goToMobile('#contact')}
             className="mt-8 flex items-center justify-center gap-2 bg-primary text-white px-6 py-4 rounded-full font-semibold w-full border border-transparent hover:border-accent hover:-translate-y-0.5 transition-all duration-500"
           >
             Enquire
@@ -786,7 +804,7 @@ function Features() {
   ]
 
   return (
-    <section id="services" ref={sectionRef} className="relative py-28 sm:py-40 px-6 sm:px-10 lg:px-16">
+    <section id="disciplines" ref={sectionRef} className="relative py-28 sm:py-40 px-6 sm:px-10 lg:px-16 scroll-mt-28">
       <div className="max-w-7xl mx-auto">
         <div className="feature-heading max-w-3xl mb-16 sm:mb-24">
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary-dark">
@@ -928,7 +946,7 @@ function Pillars() {
   ]
 
   return (
-    <section id="sustainability" ref={ref} className="relative py-28 sm:py-40 px-6 sm:px-10 lg:px-16 overflow-hidden">
+    <section id="sustainability" ref={ref} className="relative py-28 sm:py-40 px-6 sm:px-10 lg:px-16 overflow-hidden scroll-mt-28">
       {/* Soft background atmosphere */}
       <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-64 w-[44rem] rounded-full bg-primary/15 blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-accent/10 blur-3xl pointer-events-none" />
@@ -1050,6 +1068,11 @@ function Protocol() {
   const containerRef = useRef(null)
 
   useEffect(() => {
+    // Skip the blur filter on narrow viewports — position: sticky + filter is a
+    // known source of flicker/jank on mobile Safari. Scale + opacity alone still
+    // reads as the same "recede" motion without that risk.
+    const isMobile = window.matchMedia('(max-width: 767px)').matches
+
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray('.protocol-card')
       cards.forEach((card, i) => {
@@ -1063,7 +1086,7 @@ function Protocol() {
             scrub: 1,
           },
           scale: 0.92,
-          filter: 'blur(6px) saturate(0.7)',
+          ...(isMobile ? {} : { filter: 'blur(6px) saturate(0.7)' }),
           opacity: 0.5,
           ease: 'none',
         })
@@ -1103,7 +1126,7 @@ function Protocol() {
   ]
 
   return (
-    <section id="process" ref={containerRef} className="relative px-4 sm:px-6 py-20">
+    <section id="process" ref={containerRef} className="relative px-4 sm:px-6 py-20 scroll-mt-28">
       <div className="max-w-7xl mx-auto mb-16 px-2 sm:px-10">
         <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary-dark">
           ╱ How We Work
@@ -1198,7 +1221,7 @@ function ServicesGrid() {
   }, [])
 
   return (
-    <section ref={ref} className="relative py-24 px-6 sm:px-10 lg:px-16 bg-deep text-white overflow-hidden rounded-t-6xl">
+    <section id="services" ref={ref} className="relative py-24 px-6 sm:px-10 lg:px-16 bg-deep text-white overflow-hidden rounded-t-6xl scroll-mt-0">
       <div className="absolute -top-20 -right-20 h-96 w-96 rounded-full bg-primary/20 blur-3xl" />
       <div className="absolute bottom-0 -left-20 h-72 w-72 rounded-full bg-accent/15 blur-3xl" />
 
@@ -1437,7 +1460,7 @@ function ContactForm() {
   }
 
   return (
-    <section id="contact" className="relative py-24 sm:py-32 px-6 sm:px-10 lg:px-16 bg-background">
+    <section id="contact" className="relative py-24 sm:py-32 px-6 sm:px-10 lg:px-16 bg-background scroll-mt-28">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
           {/* Left: heading + info */}

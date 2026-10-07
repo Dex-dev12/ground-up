@@ -2074,14 +2074,35 @@ export function Layout({ children }) {
   const { pathname } = useLocation()
   const navigate = useNavigate()
 
-  // New page: start at the top and let ScrollTrigger re-measure
+  // New page: start at the top and let ScrollTrigger re-measure. ScrollTrigger
+  // caches the last scroll position and restores it on refresh (this showed up
+  // on phones in production), so clear that memory and sync it after jumping.
   useEffect(() => {
+    ScrollTrigger.clearScrollMemory('manual')
     window.scrollTo({ top: 0, behavior: 'instant' })
-    const t1 = setTimeout(() => ScrollTrigger.refresh(), 200)
-    const t2 = setTimeout(() => ScrollTrigger.refresh(), 1000)
+    ScrollTrigger.update()
+    const refresh = () => {
+      ScrollTrigger.refresh()
+      if (window.scrollY > 0 && !window.__userScrolled) window.scrollTo({ top: 0, behavior: 'instant' })
+    }
+    window.__userScrolled = false
+    const markScrolled = () => {
+      window.__userScrolled = true
+    }
+    window.addEventListener('wheel', markScrolled, { passive: true })
+    window.addEventListener('touchmove', markScrolled, { passive: true })
+    window.addEventListener('keydown', markScrolled)
+    const t1 = setTimeout(refresh, 200)
+    const t2 = setTimeout(refresh, 1000)
+    const cleanup = () => {
+      window.removeEventListener('wheel', markScrolled)
+      window.removeEventListener('touchmove', markScrolled)
+      window.removeEventListener('keydown', markScrolled)
+    }
     return () => {
       clearTimeout(t1)
       clearTimeout(t2)
+      cleanup()
     }
   }, [pathname])
 

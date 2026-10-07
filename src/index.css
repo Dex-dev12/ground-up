@@ -5,9 +5,9 @@
 @layer base {
   html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
   body { @apply bg-background text-ink font-body; overflow-x: hidden; }
-  ::selection { background-color: #2C4A3B; color: #F7F5F0; }
+  ::selection { background-color: #2C4A3B; color: #E0E2E4; }
   ::-webkit-scrollbar { width: 10px; }
-  ::-webkit-scrollbar-track { background: #F7F5F0; }
+  ::-webkit-scrollbar-track { background: #E0E2E4; }
   ::-webkit-scrollbar-thumb { background: #4F7161; border-radius: 10px; }
   ::-webkit-scrollbar-thumb:hover { background: #2C4A3B; }
 }
@@ -39,7 +39,7 @@
     position: absolute;
     inset: -3px;
     border-radius: inherit;
-    border: 2px solid var(--ring-color, #C8A96E);
+    border: 2px solid var(--ring-color, #A7ACB2);
     clip-path: circle(0% at 50% 0%);
     transition: clip-path 900ms cubic-bezier(0.65,0,0.35,1);
     pointer-events: none;
@@ -47,7 +47,7 @@
   .ring-draw:hover::after {
     clip-path: circle(150% at 50% 0%);
   }
-  .ring-gold { --ring-color: #C8A96E; }
+  .ring-gold { --ring-color: #A7ACB2; }
   .ring-green { --ring-color: #2C4A3B; }
   .hero-kenburns {
     animation: kenburns 18s ease-in-out infinite alternate;
@@ -56,11 +56,20 @@
     0%   { transform: scale(1); }
     100% { transform: scale(1.12); }
   }
+  .stamp-spin { animation: stamp-spin 40s linear infinite; }
+  .scroll-cue { animation: scroll-cue 1.8s ease-in-out infinite; }
+  @keyframes scroll-cue {
+    0%, 100% { transform: translateY(0); opacity: 0.55; }
+    50% { transform: translateY(7px); opacity: 1; }
+  }
+  @keyframes stamp-spin {
+    to { transform: rotate(360deg); }
+  }
   @media (prefers-reduced-motion: reduce) {
-    .hero-kenburns { animation: none; }
+    .hero-kenburns, .stamp-spin, .scroll-cue { animation: none; }
   }
   .glass {
-    background: rgba(247,245,240,0.65);
+    background: rgba(224,226,228,0.65);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(44,74,59,0.18);
   }
@@ -75,6 +84,7 @@
     100% { box-shadow: 0 0 0 0 rgba(44,74,59,0); }
   }
   .text-balance { text-wrap: balance; }
+  .font-display { text-transform: uppercase; }
   .scrollbar-hide::-webkit-scrollbar { display: none; }
 }
 

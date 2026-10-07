@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
@@ -22,6 +22,7 @@ import {
   Menu,
   X,
   Upload,
+  ArrowDown,
 } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -30,47 +31,59 @@ gsap.registerPlugin(ScrollTrigger)
    Constants / Content
 ---------------------------------------------------------------- */
 const NAV_LINKS = [
-  { label: 'Home', href: '#home' },
-  { label: 'Services', href: '#services' },
-  { label: 'Sustainability', href: '#sustainability' },
-  { label: 'Process', href: '#process' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'About', href: '/about' },
+  { label: 'Services', href: '/services' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Sustainability', href: '/sustainability' },
+  { label: 'Contact', href: '/contact' },
 ]
 
-const SERVICES_FULL = [
+export const SERVICES_FULL = [
   {
     icon: Shovel,
+    slug: 'full-landscape-construction',
     title: 'Full Landscape Construction',
+    includes: ['Retaining walls, and outdoor construction and design', 'Paving', 'Concrete services', 'Carpentry', 'Gates and fencing', 'Outdoor living, seating, and customized construction'],
     text: 'End-to-end construction from groundwork to finished garden — earthworks, drainage, paving and planting delivered as one continuous build.',
     image: '/images/rooftop-turf-terrace.jpg',
   },
   {
     icon: PencilRuler,
+    slug: 'landscape-design-full-renovation',
     title: 'Landscape Design & Full Renovation',
+    includes: ['Landscape and garden design commercial and residential', 'Outdoor design includes BBQs and furnishings', 'Garden lighting space', 'Green Walls', 'Sensory Gardens', 'Vegetable Gardens'],
     text: 'Concept through documentation. We refresh established gardens and reimagine tired outdoor spaces into something built for how you actually live.',
     image: '/images/entry-garden-native-grasses.jpg',
   },
   {
     icon: Mountain,
+    slug: 'structural-stone-masonry',
     title: 'Structural Stone Masonry',
+    includes: ['Stonemasonry', 'Retaining walls, and outdoor construction and design', 'Paving', 'Concrete services'],
     text: 'Retaining walls, steps, cladding and feature stonework — hand-built with locally sourced stone and real craftsmanship.',
     image: '/images/stone-retaining-wall-steps.jpg',
   },
   {
     icon: Building2,
+    slug: 'architectural-design',
     title: 'Architectural Design',
+    includes: ['Landscape and garden design commercial and residential', 'Pool and water features', 'Corporate workplace gardens and green spaces', 'Events and outdoor landscape installations'],
     text: 'We treat home and garden as a single composition, integrating structure, sightlines and material palette from the outset.',
     image: '/images/pool-glass-fence-paving.jpg',
   },
   {
     icon: Sprout,
+    slug: 'horticulture-planting',
     title: 'Horticulture & Planting',
+    includes: ['Plant design and horticultural services', 'Tree and arborist services', 'Green Walls', 'Vegetable Gardens', 'Sensory Gardens'],
     text: 'Species selection, soil health and seasonal planting plans — gardens chosen to thrive in their exact position, not just at handover.',
     image: '/images/pool-boulder-garden-bed.jpg',
   },
   {
     icon: Droplet,
+    slug: 'sustainable-garden-design',
     title: 'Sustainable Garden Design',
+    includes: ['Irrigation systems', 'Solar lighting', 'Planting', 'Vegetable Gardens', 'Green Walls'],
     text: 'Water-wise planting and climate-resilient materials, ethically sourced and built to perform through every Sydney season.',
     image: '/images/hero-pool-retaining-wall.jpg',
   },
@@ -88,7 +101,7 @@ const HERO_IMAGES = [
 /* ----------------------------------------------------------------
    Navbar
 ---------------------------------------------------------------- */
-function Navbar() {
+export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -98,21 +111,12 @@ function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const goTo = (href) => (e) => {
-    e.preventDefault()
-    const target = document.querySelector(href)
-    if (!target) return
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
+  const { pathname } = useLocation()
 
-  const goToMobile = (href) => (e) => {
-    e.preventDefault()
+  // Close the mobile menu whenever the route changes
+  useEffect(() => {
     setOpen(false)
-    // Let the menu-close animation clear the viewport before scrolling
-    setTimeout(() => {
-      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 320)
-  }
+  }, [pathname])
 
   return (
     <>
@@ -124,43 +128,41 @@ function Navbar() {
         } rounded-full px-4 sm:px-6 py-2.5 w-[calc(100%-2rem)] max-w-5xl`}
       >
         <div className="flex items-center justify-between gap-6">
-          <a href="#home" className="flex items-center gap-2.5 group">
-            <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full overflow-hidden ring-2 ring-primary/25 group-hover:ring-accent/60 transition">
-              <img src="/images/groundup-mark.jpg" alt="" className="h-full w-full object-cover" />
-            </span>
-            <span
-              className={`font-serif italic text-xl sm:text-2xl tracking-tight ${
-                scrolled ? 'text-ink' : 'text-white'
-              } transition-colors`}
-            >
-              Ground Up
-            </span>
-          </a>
+          <Link to="/" className="flex items-center group" aria-label="Ground Up home">
+            <img
+              src={scrolled ? '/brand/GroundUp_Logo_Spaced.png' : '/brand/GroundUp_Logo_White_Spaced.png'}
+              alt="Ground Up"
+              className="h-5 sm:h-6 w-auto transition-opacity duration-500 group-hover:opacity-80"
+            />
+          </Link>
 
           <div className="hidden lg:flex items-center gap-7">
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.href}
-                href={link.href}
-                onClick={goTo(link.href)}
+                to={link.href}
+                aria-current={(pathname === link.href || pathname.startsWith(`${link.href}/`)) ? 'page' : undefined}
                 className={`group relative text-sm font-medium tracking-tight pb-1 ${
                   scrolled ? 'text-ink/70 hover:text-primary' : 'text-white/90 hover:text-white'
                 } transition-colors`}
               >
                 {link.label}
-                <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-accent scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out" />
-              </a>
+                <span
+                  className={`absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-accent origin-left transition-transform duration-300 ease-out ${
+                    (pathname === link.href || pathname.startsWith(`${link.href}/`)) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                  }`}
+                />
+              </Link>
             ))}
           </div>
 
-          <a
-            href="#contact"
-            onClick={goTo('#contact')}
+          <Link
+            to="/contact"
             className="hidden lg:inline-flex items-center gap-1.5 bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold border border-transparent hover:border-accent hover:-translate-y-0.5 shadow-lg shadow-primary/30 hover:shadow-accent/25 transition-all duration-500"
           >
             Enquire
             <ArrowUpRight className="h-4 w-4" strokeWidth={2.5} />
-          </a>
+          </Link>
 
           <button
             onClick={() => setOpen(true)}
@@ -190,12 +192,7 @@ function Navbar() {
           }`}
         >
           <div className="flex items-center justify-between mb-10">
-            <span className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full overflow-hidden ring-2 ring-primary/25">
-                <img src="/images/groundup-mark.jpg" alt="" className="h-full w-full object-cover" />
-              </span>
-              <span className="font-serif italic text-xl text-ink">Ground Up</span>
-            </span>
+            <img src="/brand/GroundUp_Logo_Spaced.png" alt="Ground Up" className="h-5 w-auto" />
             <button
               onClick={() => setOpen(false)}
               className="p-2 rounded-full bg-divider/40"
@@ -205,27 +202,47 @@ function Navbar() {
           </div>
           <div className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.href}
-                href={link.href}
-                onClick={goToMobile(link.href)}
+                to={link.href}
                 className="font-display text-3xl font-semibold text-ink py-3 border-b border-divider"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
-          <a
-            href="#contact"
-            onClick={goToMobile('#contact')}
+          <Link
+            to="/contact"
             className="mt-8 flex items-center justify-center gap-2 bg-primary text-white px-6 py-4 rounded-full font-semibold w-full border border-transparent hover:border-accent hover:-translate-y-0.5 transition-all duration-500"
           >
             Enquire
             <ArrowUpRight className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
       </div>
     </>
+  )
+}
+
+/* ----------------------------------------------------------------
+   Scroll cue: "Scroll" + looping arrow; click jumps past the section
+---------------------------------------------------------------- */
+export function ScrollCue({ className = '' }) {
+  const onClick = (e) => {
+    const section = e.currentTarget.closest('section')
+    if (!section) return
+    window.scrollBy({ top: section.getBoundingClientRect().bottom - 80, behavior: 'smooth' })
+  }
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label="Scroll to the next section"
+      className={`flex-col items-center gap-2 text-white/80 hover:text-white transition-colors ${className}`}
+    >
+      <span className="font-mono uppercase text-[11px] tracking-[0.3em]">Scroll</span>
+      <ArrowDown className="scroll-cue h-5 w-5" strokeWidth={2} />
+    </button>
   )
 }
 
@@ -306,18 +323,22 @@ function Hero() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 flex min-h-[100dvh] flex-col items-center justify-center text-center">
+      <div className="relative z-10 flex min-h-[100dvh] flex-col items-center justify-center text-center pt-24 pb-12">
         <div className="px-6 sm:px-10 lg:px-16 max-w-4xl">
-          <p className="hero-meta font-mono text-xs uppercase tracking-[0.3em] text-white/60 mb-6">
-            Sydney North · Bespoke Landscape Construction &amp; Architectural Design
-          </p>
-          <h1 className="font-display font-semibold text-white leading-[0.95] tracking-tight">
-            <span className="hero-line-1 block text-4xl sm:text-5xl md:text-6xl">
+          <div className="hero-meta mx-auto mb-8 sm:mb-10 h-28 w-28 sm:h-40 sm:w-40">
+            <img
+              src="/brand/stamp-white.png"
+              alt="Constructing sustainable landscapes"
+              className="stamp-spin h-full w-full opacity-90"
+            />
+          </div>
+          <h1 className="font-body text-white">
+            <span className="hero-line-1 block font-normal text-4xl sm:text-5xl md:text-6xl tracking-[0.02em] leading-[1.1]">
               We connect home to garden,
             </span>
             <span
-              className="hero-line-2 block font-serif italic font-medium text-accent text-5xl sm:text-6xl md:text-7xl lg:text-8xl mt-2"
-              style={{ lineHeight: '0.95' }}
+              className="hero-line-2 block font-display font-light text-accent text-3xl sm:text-5xl md:text-6xl tracking-[0.12em] mt-3 sm:mt-4"
+              style={{ lineHeight: '1.05' }}
             >
               nature to family.
             </span>
@@ -330,7 +351,7 @@ function Hero() {
 
           <div className="hero-cta mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="#contact"
+              href="/contact"
               className="group inline-flex items-center justify-center gap-2 bg-primary text-white font-semibold px-7 py-4 rounded-full border border-transparent hover:border-accent hover:-translate-y-0.5 shadow-2xl shadow-primary/40 hover:shadow-accent/25 transition-all duration-500"
             >
               Book a Consultation
@@ -346,11 +367,7 @@ function Hero() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 right-6 sm:right-12 hidden md:flex flex-col items-center gap-2 text-white/50">
-          <span className="font-mono uppercase text-[10px] tracking-[0.3em]">Scroll</span>
-          <div className="h-8 w-px bg-gradient-to-b from-white/50 to-transparent" />
-        </div>
+        <ScrollCue className="absolute bottom-8 right-6 sm:right-12 hidden md:flex" />
       </div>
     </section>
   )
@@ -390,7 +407,7 @@ function ConstructionShuffler() {
               transform: `translate(${offset * 14}px, ${offset * 14}px) scale(${1 - offset * 0.05})`,
               zIndex: total - offset,
               opacity: 1 - offset * 0.25,
-              transition: 'transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease',
+              transition: 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease',
             }}
             className="absolute inset-0 bg-white border border-divider rounded-3xl p-5 shadow-md"
           >
@@ -409,7 +426,7 @@ function ConstructionShuffler() {
                   key={idx}
                   className="h-1 w-1 rounded-full"
                   style={{
-                    background: idx < 24 - offset * 6 ? '#2C4A3B' : '#E4E1D8',
+                    background: idx < 24 - offset * 6 ? '#2C4A3B' : '#C9CDD1',
                   }}
                 />
               ))}
@@ -481,7 +498,7 @@ function LeafFall() {
     <div
       className="relative h-44 w-full rounded-3xl overflow-hidden border border-primary/15"
       style={{
-        background: 'linear-gradient(180deg, #F7F5F0 0%, #E4E1D8 60%, #C8A96E22 100%)',
+        background: 'linear-gradient(180deg, #E0E2E4 0%, #C9CDD1 60%, #A7ACB222 100%)',
       }}
     >
       {/* Soft atmosphere blobs */}
@@ -522,7 +539,7 @@ function LeafFall() {
         {[60, 152, 248, 340].map((x) => (
           <g key={x}>
             <ellipse cx={x - 3} cy="4" rx="4" ry="2.5" fill="#4F7161" fillOpacity="0.8" transform={`rotate(-20 ${x - 3} 4)`} />
-            <ellipse cx={x + 4} cy="15" rx="4" ry="2.5" fill="#C8A96E" fillOpacity="0.7" transform={`rotate(20 ${x + 4} 15)`} />
+            <ellipse cx={x + 4} cy="15" rx="4" ry="2.5" fill="#A7ACB2" fillOpacity="0.7" transform={`rotate(20 ${x + 4} 15)`} />
           </g>
         ))}
       </svg>
@@ -561,7 +578,7 @@ function LeafFall() {
                 fill={`url(#leaf-${i})`}
               />
               {/* Central vein */}
-              <line x1="12" y1="5" x2="12" y2="30" stroke="#F7F5F0" strokeOpacity="0.4" strokeWidth="0.8" />
+              <line x1="12" y1="5" x2="12" y2="30" stroke="#E0E2E4" strokeOpacity="0.4" strokeWidth="0.8" />
               {/* Highlight */}
               <ellipse cx="9.5" cy="14" rx="1.6" ry="3" fill="white" fillOpacity="0.35" />
             </svg>
@@ -581,7 +598,7 @@ function LeafFall() {
             <path
               key={i}
               d={`M ${x},12 L ${x + 2.5},4 L ${x + 5},12 Z`}
-              fill={i % 2 === 0 ? '#2C4A3B' : '#C8A96E'}
+              fill={i % 2 === 0 ? '#2C4A3B' : '#A7ACB2'}
               fillOpacity={i % 2 === 0 ? 0.4 : 0.35}
             />
           )
@@ -712,7 +729,7 @@ function SiteVisitScheduler() {
       <button
         className={`w-full py-2.5 rounded-2xl font-medium text-xs transition-all duration-300 ${
           step === 4
-            ? 'bg-accent text-white scale-[1.02] shadow-md shadow-accent/30'
+            ? 'bg-accent-dark text-white scale-[1.02] shadow-md shadow-accent-dark/30'
             : 'bg-divider/40 text-muted'
         }`}
       >
@@ -779,75 +796,102 @@ function Features() {
     return () => ctx.revert()
   }, [])
 
-  const cards = [
-    {
-      eyebrow: '01 / Construction',
-      heading: 'Built From The Ground Up',
-      sub: '12+ years of craft',
-      text: 'From groundworks to finished garden, we stage every build — earthworks, masonry, hard landscaping and planting — so nothing is rushed and everything is engineered to last.',
-      Component: ConstructionShuffler,
-    },
-    {
-      eyebrow: '02 / Living Systems',
-      heading: 'Gardens In Motion',
-      sub: 'Grown, not just built',
-      text: 'Every garden we deliver keeps growing after handover. We track seasonal care, soil health and canopy growth so your landscape only gets better with time.',
-      Component: LeafFall,
-    },
-    {
-      eyebrow: '03 / Process',
-      heading: 'Site Visits',
-      sub: 'Book a walkthrough',
-      text: 'We walk every site in person before a single stone moves. Book a consultation and we will meet you on-site to talk through the brief.',
-      Component: SiteVisitScheduler,
-    },
-  ]
-
   return (
     <section id="disciplines" ref={sectionRef} className="relative py-28 sm:py-40 px-6 sm:px-10 lg:px-16 scroll-mt-28">
-      <div className="max-w-7xl mx-auto">
-        <div className="feature-heading max-w-3xl mb-16 sm:mb-24">
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary-dark">
-            ╱ Three Disciplines
-          </span>
-          <h2 className="font-display font-semibold text-4xl sm:text-5xl md:text-6xl text-ink mt-4 leading-[1.05] tracking-tight">
-            Three crafts.
-            <span className="block font-serif italic font-medium text-primary-dark mt-1">
-              One garden.
-            </span>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        {/* Text: copied word for word from the Ground Up homepage */}
+        <div className="feature-heading">
+          <h2 className="font-display font-semibold text-3xl sm:text-4xl md:text-5xl text-ink leading-[1.1] tracking-[0.2em]">
+            Outdoor living
           </h2>
+          <div className="mt-8 space-y-5 text-muted text-base sm:text-lg leading-relaxed max-w-xl">
+            <p>
+              Ground up creates sustainable, contemporary gardens and landscapes that are designed for use
+              all year round and are unique to our customers.
+            </p>
+            <p>
+              With special attention to architecture, craftsmanship and detail, we endeavour to use local
+              Australian materials that are ethically sourced and produced.
+            </p>
+            <p>
+              We ensure that our gardens belong in a larger ecosystem, they are kind to existing flora and
+              fauna. Bees thrive in a Ground Up garden, encouraging pollination that will benefit your whole
+              outdoor space.
+            </p>
+            <p>
+              We connect home to garden, nature to family and comfort to entertaining. Our team of architects,
+              designers, structural landscapers, stone masons, carpenters, and horticulturists are dedicated to
+              delivering amazing gardens in every Sydney Project.
+            </p>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {cards.map((card, idx) => (
-            <article
-              key={idx}
-              className="feature-card group relative bg-surface border border-divider rounded-5xl p-7 hover:border-primary/40 transition-colors duration-500 shadow-sm hover:shadow-xl hover:shadow-primary/10"
-            >
-              <div className="flex items-center justify-between mb-6">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-                  {card.eyebrow}
-                </span>
-                <ArrowUpRight
-                  className="h-5 w-5 text-ink/30 group-hover:text-primary group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all"
-                  strokeWidth={1.8}
-                />
-              </div>
+        {/* Image */}
+        <div className="feature-card relative overflow-hidden rounded-5xl aspect-[4/5] shadow-xl shadow-primary/10">
+          <img
+            src="/images/stone-retaining-wall-steps.jpg"
+            alt="Sandstone retaining wall with built-in bench seat and stone steps, a Ground Up build"
+            className="absolute inset-0 h-full w-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </section>
+  )
+}
 
-              {/* Interactive artifact */}
-              <card.Component />
+/* ----------------------------------------------------------------
+   Complex Landscaping: text copied word for word from the Ground Up homepage
+---------------------------------------------------------------- */
+function ComplexLandscaping() {
+  const sectionRef = useRef(null)
 
-              <div className="mt-6">
-                <h3 className="font-display font-bold text-2xl text-ink leading-tight">
-                  {card.heading}
-                </h3>
-                <p className="font-serif italic text-primary-dark text-sm mt-1">
-                  {card.sub}
-                </p>
-                <p className="text-muted text-[15px] mt-4 leading-relaxed">{card.text}</p>
-              </div>
-            </article>
-          ))}
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.complex-reveal', {
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 85%', once: true },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        stagger: 0.15,
+      })
+    }, sectionRef)
+    return () => ctx.revert()
+  }, [])
+
+  return (
+    <section id="sustainability" ref={sectionRef} className="relative bg-earth py-28 sm:py-40 px-6 sm:px-10 lg:px-16 scroll-mt-28">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        {/* Image */}
+        <div className="complex-reveal relative overflow-hidden rounded-5xl aspect-[4/5] shadow-2xl shadow-black/20 order-2 lg:order-1">
+          <img
+            src="/images/pool-glass-fence-paving.jpg"
+            alt="Pool with glass fencing and natural stone paving, a Ground Up build"
+            className="absolute inset-0 h-full w-full object-cover"
+            loading="lazy"
+          />
+        </div>
+
+        {/* Text */}
+        <div className="complex-reveal order-1 lg:order-2">
+          <h2 className="font-display font-semibold text-3xl sm:text-4xl md:text-5xl text-white leading-[1.1] tracking-[0.2em]">
+            Complex landscaping services Sydney
+          </h2>
+          <div className="mt-8 space-y-5 text-white/90 text-base sm:text-lg leading-relaxed max-w-xl">
+            <p>
+              Ground Up creates functional living spaces that connect your private home with the beauty of the
+              natural world. Our goal is to provide our clients with an environment that they can comfortably
+              laze around and read a book in, or use to host celebrations with family and friends. We are
+              committed to creating architectural urban and suburban outdoor spaces that add enjoyment,
+              imagination and value to your property.
+            </p>
+            <p>
+              Our gardens are sleek and timeless. We are enthusiastic about all our projects and you can be
+              assured that our team will approach your vision with passion and professionalism. Our collective
+              experience allows us to tackle even the most complex projects with confidence.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -898,7 +942,7 @@ function CountUp({ target, duration = 1800 }) {
 /* ----------------------------------------------------------------
    Pillars — Three core numbers
 ---------------------------------------------------------------- */
-function Pillars() {
+export function Pillars() {
   const ref = useRef(null)
   const [visible, setVisible] = useState(false)
 
@@ -946,7 +990,7 @@ function Pillars() {
   ]
 
   return (
-    <section id="sustainability" ref={ref} className="relative py-28 sm:py-40 px-6 sm:px-10 lg:px-16 overflow-hidden scroll-mt-28">
+    <section id="abundance" ref={ref} className="relative py-28 sm:py-40 px-6 sm:px-10 lg:px-16 overflow-hidden scroll-mt-28">
       {/* Soft background atmosphere */}
       <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-64 w-[44rem] rounded-full bg-primary/15 blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-accent/10 blur-3xl pointer-events-none" />
@@ -962,9 +1006,9 @@ function Pillars() {
             <span className="inline-block font-mono text-xs uppercase tracking-[0.3em] text-primary-dark mb-5">
               ╱ Sustainable By Design
             </span>
-            <h2 className="font-display font-semibold text-4xl sm:text-5xl md:text-6xl text-ink leading-[1.05] tracking-tight">
+            <h2 className="font-display font-semibold text-4xl sm:text-5xl md:text-6xl text-ink leading-[1.05] tracking-[0.2em]">
               We prefer
-              <span className="block font-serif italic font-medium text-primary-dark">&ldquo;abundance.&rdquo;</span>
+              <span className="block font-display font-medium text-primary-dark">&ldquo;abundance.&rdquo;</span>
             </h2>
           </div>
           <p className="text-muted text-lg leading-relaxed max-w-md lg:text-right">
@@ -993,10 +1037,10 @@ function Pillars() {
 
               {/* Massive number with counter */}
               <div className="flex items-end gap-1 leading-none">
-                <span className="font-display font-semibold text-[6rem] sm:text-[8rem] md:text-[9rem] leading-[0.85] text-ink tabular-nums tracking-tight">
+                <span className="font-display font-semibold text-[6rem] sm:text-[8rem] md:text-[9rem] leading-[0.85] text-ink tabular-nums tracking-[0.2em]">
                   <CountUp target={p.target} duration={1800 + i * 200} />
                 </span>
-                <span className="font-serif italic font-medium text-4xl sm:text-5xl md:text-6xl text-primary-dark mb-3 sm:mb-4">
+                <span className="font-display font-medium text-4xl sm:text-5xl md:text-6xl text-primary-dark mb-3 sm:mb-4">
                   {p.suffix}
                 </span>
               </div>
@@ -1030,8 +1074,8 @@ function Pillars() {
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <blockquote className="lg:col-span-3 border-l-2 border-accent pl-6 sm:pl-8">
-            <p className="font-serif italic text-primary-dark text-xl sm:text-2xl leading-snug">
+          <blockquote className="lg:col-span-3 border-l-2 border-accent-dark pl-6 sm:pl-8">
+            <p className="font-body text-primary-dark text-xl sm:text-2xl leading-snug">
               &ldquo;The abundant garden is more about principles for intelligent design — centred on
               recycling and using renewable resources, accommodating biodiversity and conservation,
               and adopting an organic approach to gardening.&rdquo;
@@ -1064,7 +1108,7 @@ function Pillars() {
 /* ----------------------------------------------------------------
    Protocol — Sticky Stacking Cards (real Ground Up process)
 ---------------------------------------------------------------- */
-function Protocol() {
+export function Protocol() {
   const containerRef = useRef(null)
 
   useEffect(() => {
@@ -1095,12 +1139,13 @@ function Protocol() {
     return () => ctx.revert()
   }, [])
 
+  // Titles/taglines are short labels; step text is word for word from the Ground Up homepage
   const steps = [
     {
       num: '01',
       title: 'Design & Concept',
       tagline: 'We listen first.',
-      text: 'We walk the site with you, understand your needs, and share initial solution ideas — no two gardens start from the same brief.',
+      text: 'We walk the site with you, understand your needs, and share initial solution ideas.',
       image: '/images/entry-garden-native-grasses.jpg',
       alt: 'Architectural home entry with native grasses and stone edging, a Ground Up design',
       meta: 'Step 1 / Consult',
@@ -1109,16 +1154,16 @@ function Protocol() {
       num: '02',
       title: 'Concept & Documentation',
       tagline: 'We draft the vision.',
-      text: 'We draft a concept plan based on the ideas shared in our initial consult — layout, materials and plants, documented in detail before a single stone moves.',
-      image: '/images/stone-retaining-wall-steps.jpg',
-      alt: 'Sandstone retaining wall with built-in bench seat and stone steps, a Ground Up build',
+      text: 'We draft a concept plan based on the ideas shared in our initial consult that includes layout, materials and plants.',
+      image: '/images/rooftop-turf-terrace.jpg',
+      alt: 'Rooftop turf terrace landscaping, a Ground Up project',
       meta: 'Step 2 / Plan',
     },
     {
       num: '03',
       title: 'Refinement & Approval',
       tagline: 'We build it together.',
-      text: 'We revise the draft with you and gather your feedback before progressing onto landscape plan approval and staged construction through to handover.',
+      text: 'We revise the draft with you and get feedback before progressing onto landscape plan approval. Constant feedback is crucial to customer satisfaction, therefore, this step is one of the most important.',
       image: '/images/pool-boulder-garden-bed.jpg',
       alt: 'Finished pool and boulder retaining wall garden bed, a completed Ground Up project',
       meta: 'Step 3 / Approve',
@@ -1131,12 +1176,15 @@ function Protocol() {
         <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary-dark">
           ╱ How We Work
         </span>
-        <h2 className="font-display font-semibold text-4xl sm:text-5xl md:text-6xl text-ink mt-4 leading-[1.05] tracking-tight max-w-3xl">
+        <h2 className="font-body font-semibold text-4xl sm:text-5xl md:text-6xl text-ink mt-4 leading-[1.05] tracking-tight max-w-3xl">
           Three steps.
-          <span className="block font-serif italic font-medium text-primary-dark">
+          <span className="block font-light italic text-primary-dark">
             No guesswork.
           </span>
         </h2>
+        <p className="mt-6 text-muted text-lg sm:text-xl leading-relaxed max-w-2xl">
+          Once you contact us about your project, we will take you through three simple steps:
+        </p>
       </div>
 
       <div className="space-y-8">
@@ -1158,13 +1206,13 @@ function Protocol() {
                 </div>
 
                 <div className="my-12">
-                  <span className="font-display font-semibold text-[7rem] sm:text-[10rem] leading-none text-primary/15 -mb-4 block">
+                  <span className="font-body font-light text-[7rem] sm:text-[10rem] leading-none text-primary/15 -mb-4 block">
                     {step.num}
                   </span>
-                  <h3 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl text-ink leading-[1.02] tracking-tight">
+                  <h3 className="font-body font-semibold text-4xl sm:text-5xl md:text-6xl text-ink leading-[1.02] tracking-tight">
                     {step.title}
                   </h3>
-                  <p className="font-serif italic text-primary-dark text-2xl sm:text-3xl mt-3">
+                  <p className="font-body font-light italic text-primary-dark text-2xl sm:text-3xl mt-3">
                     {step.tagline}
                   </p>
                 </div>
@@ -1174,7 +1222,7 @@ function Protocol() {
                 </p>
               </div>
 
-              {/* Right visual — real Ground Up project photography */}
+              {/* Right visual: real Ground Up project photography */}
               <div className="lg:col-span-2 relative overflow-hidden min-h-[300px] lg:min-h-full bg-deep">
                 <img
                   src={step.image}
@@ -1189,13 +1237,25 @@ function Protocol() {
                     Step {step.num}
                   </span>
                 </div>
-                <div className="absolute bottom-4 right-4 font-mono text-[10px] uppercase tracking-widest text-white/70">
-                  {step.num} / Ground Up
-                </div>
               </div>
             </div>
           </article>
         ))}
+      </div>
+
+      <div className="max-w-3xl mx-auto mt-20 sm:mt-28 px-2 text-center">
+        <p className="text-muted text-lg sm:text-xl leading-relaxed">
+          You can trust Ground Up to create a home environment that yourself, your family and your friends
+          will treasure. Our gardens are known for their architectural integrity, elegant design and lush,
+          vibrant greenery. Don&rsquo;t hesitate to reach out to our lovely team.
+        </p>
+        <a
+          href="/contact"
+          className="mt-8 inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-4 rounded-full border border-transparent hover:border-accent hover:-translate-y-0.5 shadow-xl shadow-primary/30 transition-all duration-500"
+        >
+          Book Your Consultation
+          <ArrowRight className="h-4 w-4" />
+        </a>
       </div>
     </section>
   )
@@ -1204,7 +1264,16 @@ function Protocol() {
 /* ----------------------------------------------------------------
    All Services Grid (6 services)
 ---------------------------------------------------------------- */
-function ServicesGrid() {
+export function ServicesGrid({
+  exclude,
+  eyebrow = 'Everything We Do',
+  title = 'One team,',
+  accentTitle = 'every discipline.',
+  intro = 'With special attention to architecture, craftsmanship and detail, we endeavour to use local Australian materials that are ethically sourced and produced.',
+}) {
+  const items = SERVICES_FULL.filter((svc) => svc.slug !== exclude)
+  // Five tiles (a service page hiding itself): 3 across, then 2 wider tiles
+  const five = items.length === 5
   const ref = useRef(null)
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -1228,38 +1297,42 @@ function ServicesGrid() {
       <div className="relative max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-14">
           <div>
-            <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary-light">╱ Everything We Do</span>
-            <h2 className="font-display font-semibold text-4xl sm:text-5xl md:text-6xl mt-4 leading-[1.05] tracking-tight">
-              One team,
-              <span className="block font-serif italic font-medium text-primary-light">
-                every discipline.
+            <span className="font-mono text-xs uppercase tracking-[0.25em] text-accent">╱ {eyebrow}</span>
+            <h2 className="font-display font-semibold text-4xl sm:text-5xl md:text-6xl mt-4 leading-[1.05] tracking-[0.2em]">
+              {title}
+              <span className="block font-display font-medium text-accent">
+                {accentTitle}
               </span>
             </h2>
           </div>
-          <p className="text-white/60 max-w-md text-base leading-relaxed">
-            With special attention to architecture, craftsmanship and detail, we endeavour to use
-            local Australian materials that are ethically sourced and produced.
-          </p>
+          <p className="text-white/60 max-w-md text-base leading-relaxed">{intro}</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 rounded-4xl overflow-hidden">
-          {SERVICES_FULL.map((svc, i) => {
+        <div
+          className={`grid grid-cols-1 sm:grid-cols-2 gap-px bg-white/10 rounded-4xl overflow-hidden ${
+            five ? 'lg:grid-cols-6' : 'lg:grid-cols-3'
+          }`}
+        >
+          {items.map((svc, i) => {
             const Icon = svc.icon
             // Match each corner tile's radius to the grid's own rounded-4xl corner
             // (1 col / 2 col / 3 col responsive layout) so the hover border and the
             // background photo clip cleanly instead of getting cut off mid-curve.
-            const cornerRadius = [
-              'rounded-t-4xl sm:rounded-tr-none',
-              'sm:rounded-tr-4xl lg:rounded-tr-none',
-              'lg:rounded-tr-4xl',
-              'lg:rounded-bl-4xl',
-              'sm:rounded-bl-4xl lg:rounded-bl-none',
-              'rounded-b-4xl sm:rounded-bl-none',
-            ][i]
+            const cornerRadius = five
+              ? `${i < 3 ? 'lg:col-span-2' : 'lg:col-span-3'} ${i === 4 ? 'sm:col-span-2 lg:col-span-3' : ''}`
+              : [
+                  'rounded-t-4xl sm:rounded-tr-none',
+                  'sm:rounded-tr-4xl lg:rounded-tr-none',
+                  'lg:rounded-tr-4xl',
+                  'lg:rounded-bl-4xl',
+                  'sm:rounded-bl-4xl lg:rounded-bl-none',
+                  'rounded-b-4xl sm:rounded-bl-none',
+                ][i]
             return (
-              <div
+              <a
                 key={i}
-                className={`svc-tile group bg-deep overflow-hidden border border-transparent hover:border-accent transition-colors duration-500 relative ${cornerRadius}`}
+                href={`/services/${svc.slug}`}
+                className={`svc-tile group block bg-deep overflow-hidden relative ${cornerRadius}`}
               >
                 {/* Background photo, visible through the dark panel */}
                 <div className="absolute inset-0">
@@ -1283,7 +1356,7 @@ function ServicesGrid() {
                   <h3 className="font-display font-bold text-xl sm:text-2xl mb-3">{svc.title}</h3>
                   <p className="text-white/55 text-sm leading-relaxed">{svc.text}</p>
                 </div>
-              </div>
+              </a>
             )
           })}
         </div>
@@ -1295,7 +1368,7 @@ function ServicesGrid() {
 /* ----------------------------------------------------------------
    Trust Signals
 ---------------------------------------------------------------- */
-function TrustSignals() {
+export function TrustSignals() {
   const ref = useRef(null)
   const [visible, setVisible] = useState(false)
 
@@ -1346,7 +1419,7 @@ function TrustSignals() {
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary-dark">
             ╱ Why Ground Up
           </span>
-          <h2 className="font-display font-semibold text-3xl sm:text-4xl md:text-5xl text-ink mt-3 tracking-tight">
+          <h2 className="font-display font-semibold text-3xl sm:text-4xl md:text-5xl text-ink mt-3 tracking-[0.2em]">
             More than a build.
           </h2>
         </div>
@@ -1377,12 +1450,12 @@ function TrustSignals() {
           <div className="absolute inset-0 bg-gradient-to-b from-deep/70 via-deep/35 to-deep/75" />
 
           <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
-            <span className="font-serif italic text-white text-4xl sm:text-6xl md:text-7xl tracking-tight">
+            <span className="font-display text-white text-4xl sm:text-6xl md:text-7xl tracking-[0.2em]">
               See The Work We Have Done
             </span>
             <div className="mt-10">
               <a
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-4 rounded-full border border-transparent hover:border-accent hover:-translate-y-0.5 shadow-2xl shadow-primary/40 hover:shadow-accent/25 transition-all duration-500"
               >
                 View Portfolio
@@ -1396,7 +1469,7 @@ function TrustSignals() {
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary-dark">
             ╱ Hear From Our Clients
           </span>
-          <h2 className="font-display font-semibold text-3xl sm:text-4xl md:text-5xl text-ink mt-3 tracking-tight">
+          <h2 className="font-display font-semibold text-3xl sm:text-4xl md:text-5xl text-ink mt-3 tracking-[0.2em]">
             Relationships that last.
           </h2>
         </div>
@@ -1409,7 +1482,7 @@ function TrustSignals() {
                 visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
-              <p className="font-serif italic text-ink text-base leading-snug">&ldquo;{t.quote}&rdquo;</p>
+              <p className="font-body text-ink text-base leading-snug">&ldquo;{t.quote}&rdquo;</p>
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary-dark mt-4">
                 {t.name} · {t.place}
               </p>
@@ -1419,7 +1492,7 @@ function TrustSignals() {
 
         <div className="text-center">
           <a
-            href="#contact"
+            href="/contact"
             className="inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-3.5 rounded-full border border-transparent hover:border-accent hover:-translate-y-0.5 shadow-xl shadow-primary/30 hover:shadow-accent/25 transition-all duration-500"
           >
             Book a Consultation
@@ -1434,7 +1507,7 @@ function TrustSignals() {
 /* ----------------------------------------------------------------
    Contact Form
 ---------------------------------------------------------------- */
-function ContactForm() {
+export function EnquiryForm({ compact = false }) {
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -1460,6 +1533,163 @@ function ContactForm() {
   }
 
   return (
+    <form
+      onSubmit={handleSubmit}
+      className={`bg-surface border border-divider rounded-5xl shadow-xl shadow-primary/5 ${compact ? 'p-6 sm:p-7' : 'p-7 sm:p-10'}`}
+    >
+      {status !== 'sent' ? (
+        <>
+          <div className={`grid sm:grid-cols-2 ${compact ? 'gap-4' : 'gap-5'}`}>
+            <Field
+              label="Name"
+              compact={compact}
+              required
+              value={form.name}
+              onChange={(v) => setForm({ ...form, name: v })}
+            />
+            <Field
+              label="Email address"
+              compact={compact}
+              type="email"
+              required
+              value={form.email}
+              onChange={(v) => setForm({ ...form, email: v })}
+            />
+            <Field
+              label="Phone number"
+              compact={compact}
+              type="tel"
+              value={form.phone}
+              onChange={(v) => setForm({ ...form, phone: v })}
+            />
+            <Field
+              label="Project location"
+              compact={compact}
+              value={form.suburb}
+              onChange={(v) => setForm({ ...form, suburb: v })}
+            />
+          </div>
+
+          <div className={compact ? 'mt-4' : 'mt-5'}>
+            <label className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-2 block">
+              Project type
+            </label>
+            <select
+              value={form.projectType}
+              onChange={(e) => setForm({ ...form, projectType: e.target.value })}
+              className={`w-full bg-background border border-divider rounded-2xl px-4 ${compact ? 'py-2.5' : 'py-3.5'} text-ink focus:border-primary focus:ring-4 focus:ring-primary/15 outline-none transition font-body appearance-none`}
+            >
+              <option value="">Select a project type</option>
+              {SERVICES_FULL.map((svc) => (
+                <option key={svc.slug} value={svc.slug}>
+                  {svc.title}
+                </option>
+              ))}
+              <option value="maintenance">Maintenance</option>
+              <option value="other">Something else</option>
+            </select>
+          </div>
+
+          <div className={compact ? 'mt-4' : 'mt-5'}>
+            <label className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-2 block">
+              Your message *
+            </label>
+            <textarea
+              value={form.message}
+              onChange={(e) => setForm({ ...form, message: e.target.value })}
+              required
+              rows={compact ? 3 : 5}
+              placeholder="Tell us about your site, timeline and vision..."
+              className={`w-full bg-background border border-divider rounded-2xl px-4 ${compact ? 'py-2.5' : 'py-3.5'} text-ink placeholder-muted/60 focus:border-primary focus:ring-4 focus:ring-primary/15 outline-none transition resize-none font-body`}
+            />
+          </div>
+
+          {/* File upload zone */}
+          <div
+            ref={dropRef}
+            onDragOver={(e) => {
+              e.preventDefault()
+              dropRef.current?.classList.add('!border-primary', '!bg-primary/5')
+            }}
+            onDragLeave={() => {
+              dropRef.current?.classList.remove('!border-primary', '!bg-primary/5')
+            }}
+            onDrop={(e) => {
+              e.preventDefault()
+              dropRef.current?.classList.remove('!border-primary', '!bg-primary/5')
+              handleFiles(e.dataTransfer.files)
+            }}
+            className={`border-2 border-dashed border-divider rounded-3xl text-center hover:border-primary/50 transition-colors cursor-pointer ${compact ? 'mt-4 px-4 py-3' : 'mt-5 p-6'}`}
+          >
+            <input
+              type="file"
+              multiple
+              id="file-up"
+              className="hidden"
+              onChange={(e) => handleFiles(e.target.files)}
+              accept="image/*"
+            />
+            <label htmlFor="file-up" className="cursor-pointer block">
+              <span className={compact ? 'flex items-center justify-center gap-3' : 'block'}>
+                <Upload className={`h-6 w-6 text-primary-dark ${compact ? '' : 'mx-auto mb-2'}`} />
+                <span className={compact ? 'text-left' : 'block'}>
+                  <span className="block font-display font-semibold text-ink text-sm">
+                    Attach photos of your site
+                  </span>
+                  <span className="block text-xs text-muted mt-1">
+                    Click or drag files here (max 5 images)
+                  </span>
+                </span>
+              </span>
+              {files.length > 0 && (
+                <div className="mt-4 flex flex-wrap gap-2 justify-center">
+                  {files.map((f, i) => (
+                    <span
+                      key={i}
+                      className="inline-flex items-center gap-1.5 bg-primary/10 text-primary-dark text-xs px-3 py-1.5 rounded-full font-mono"
+                    >
+                      <CheckCircle2 className="h-3 w-3" />
+                      {f.name.length > 22 ? f.name.slice(0, 22) + '…' : f.name}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </label>
+          </div>
+
+          <div className={`${compact ? 'mt-5' : 'mt-7'} flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4`}>
+            <p className="text-xs text-muted">
+              We'll get back to you shortly. Fields marked * are required.
+            </p>
+            <button
+              type="submit"
+              disabled={status === 'sending'}
+              className="magnetic-btn inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-primary/30 disabled:opacity-50"
+            >
+              {status === 'sending' ? 'Sending...' : 'Send Enquiry'}
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+        </>
+      ) : (
+        <div className="text-center py-12">
+          <div className="h-16 w-16 mx-auto rounded-full bg-primary/15 flex items-center justify-center mb-6">
+            <CheckCircle2 className="h-8 w-8 text-primary-dark" />
+          </div>
+          <h3 className="font-display font-bold text-2xl text-ink mb-3">
+            Thanks for reaching out
+          </h3>
+          <p className="text-muted max-w-md mx-auto">
+            We'll be in touch shortly to arrange your site visit.
+          </p>
+        </div>
+      )}
+    </form>
+  )
+}
+
+export function ContactForm() {
+  return (
     <section id="contact" className="relative py-24 sm:py-32 px-6 sm:px-10 lg:px-16 bg-background scroll-mt-28">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
@@ -1468,9 +1698,9 @@ function ContactForm() {
             <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary-dark">
               ╱ Contact
             </span>
-            <h2 className="font-display font-semibold text-4xl sm:text-5xl md:text-6xl text-ink mt-4 leading-[1.05] tracking-tight">
+            <h2 className="font-display font-semibold text-4xl sm:text-5xl md:text-6xl text-ink mt-4 leading-[1.05] tracking-[0.2em]">
               How can
-              <span className="block font-serif italic font-medium text-primary-dark">
+              <span className="block font-display font-medium text-primary-dark">
                 we help?
               </span>
             </h2>
@@ -1556,146 +1786,7 @@ function ContactForm() {
 
           {/* Right: form */}
           <div className="lg:col-span-7">
-            <form
-              onSubmit={handleSubmit}
-              className="bg-surface border border-divider rounded-5xl p-7 sm:p-10 shadow-xl shadow-primary/5"
-            >
-              {status !== 'sent' ? (
-                <>
-                  <div className="grid sm:grid-cols-2 gap-5">
-                    <Field
-                      label="Name"
-                      required
-                      value={form.name}
-                      onChange={(v) => setForm({ ...form, name: v })}
-                    />
-                    <Field
-                      label="Email address"
-                      type="email"
-                      required
-                      value={form.email}
-                      onChange={(v) => setForm({ ...form, email: v })}
-                    />
-                    <Field
-                      label="Phone number"
-                      type="tel"
-                      value={form.phone}
-                      onChange={(v) => setForm({ ...form, phone: v })}
-                    />
-                    <Field
-                      label="Project location"
-                      value={form.suburb}
-                      onChange={(v) => setForm({ ...form, suburb: v })}
-                    />
-                  </div>
-
-                  <div className="mt-5">
-                    <label className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-2 block">
-                      Project type
-                    </label>
-                    <select
-                      value={form.projectType}
-                      onChange={(e) => setForm({ ...form, projectType: e.target.value })}
-                      className="w-full bg-background border border-divider rounded-2xl px-4 py-3.5 text-ink focus:border-primary focus:ring-4 focus:ring-primary/15 outline-none transition font-body appearance-none"
-                    >
-                      <option value="">Select a project type</option>
-                      <option value="construction">Full Landscape Construction</option>
-                      <option value="design">Landscape Design &amp; Full Renovation</option>
-                      <option value="masonry">Structural Stone Masonry</option>
-                    </select>
-                  </div>
-
-                  <div className="mt-5">
-                    <label className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-2 block">
-                      Your message *
-                    </label>
-                    <textarea
-                      value={form.message}
-                      onChange={(e) => setForm({ ...form, message: e.target.value })}
-                      required
-                      rows={5}
-                      placeholder="Tell us about your site, timeline and vision..."
-                      className="w-full bg-background border border-divider rounded-2xl px-4 py-3.5 text-ink placeholder-muted/60 focus:border-primary focus:ring-4 focus:ring-primary/15 outline-none transition resize-none font-body"
-                    />
-                  </div>
-
-                  {/* File upload zone */}
-                  <div
-                    ref={dropRef}
-                    onDragOver={(e) => {
-                      e.preventDefault()
-                      dropRef.current?.classList.add('!border-primary', '!bg-primary/5')
-                    }}
-                    onDragLeave={() => {
-                      dropRef.current?.classList.remove('!border-primary', '!bg-primary/5')
-                    }}
-                    onDrop={(e) => {
-                      e.preventDefault()
-                      dropRef.current?.classList.remove('!border-primary', '!bg-primary/5')
-                      handleFiles(e.dataTransfer.files)
-                    }}
-                    className="mt-5 border-2 border-dashed border-divider rounded-3xl p-6 text-center hover:border-primary/50 transition-colors cursor-pointer"
-                  >
-                    <input
-                      type="file"
-                      multiple
-                      id="file-up"
-                      className="hidden"
-                      onChange={(e) => handleFiles(e.target.files)}
-                      accept="image/*"
-                    />
-                    <label htmlFor="file-up" className="cursor-pointer block">
-                      <Upload className="h-6 w-6 mx-auto text-primary-dark mb-2" />
-                      <p className="font-display font-semibold text-ink text-sm">
-                        Attach photos of your site
-                      </p>
-                      <p className="text-xs text-muted mt-1">
-                        Click or drag files here (max 5 images)
-                      </p>
-                      {files.length > 0 && (
-                        <div className="mt-4 flex flex-wrap gap-2 justify-center">
-                          {files.map((f, i) => (
-                            <span
-                              key={i}
-                              className="inline-flex items-center gap-1.5 bg-primary/10 text-primary-dark text-xs px-3 py-1.5 rounded-full font-mono"
-                            >
-                              <CheckCircle2 className="h-3 w-3" />
-                              {f.name.length > 22 ? f.name.slice(0, 22) + '…' : f.name}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </label>
-                  </div>
-
-                  <div className="mt-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <p className="text-xs text-muted">
-                      We'll get back to you shortly. Fields marked * are required.
-                    </p>
-                    <button
-                      type="submit"
-                      disabled={status === 'sending'}
-                      className="magnetic-btn inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-primary/30 disabled:opacity-50"
-                    >
-                      {status === 'sending' ? 'Sending...' : 'Send Enquiry'}
-                      <ArrowRight className="h-4 w-4" />
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <div className="text-center py-12">
-                  <div className="h-16 w-16 mx-auto rounded-full bg-primary/15 flex items-center justify-center mb-6">
-                    <CheckCircle2 className="h-8 w-8 text-primary-dark" />
-                  </div>
-                  <h3 className="font-display font-bold text-2xl text-ink mb-3">
-                    Thanks for reaching out
-                  </h3>
-                  <p className="text-muted max-w-md mx-auto">
-                    We'll be in touch shortly to arrange your site visit.
-                  </p>
-                </div>
-              )}
-            </form>
+            <EnquiryForm />
           </div>
         </div>
       </div>
@@ -1703,7 +1794,7 @@ function ContactForm() {
   )
 }
 
-function Field({ label, type = 'text', required, value, onChange }) {
+function Field({ label, type = 'text', required, value, onChange, compact }) {
   return (
     <div>
       <label className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-2 block">
@@ -1714,7 +1805,7 @@ function Field({ label, type = 'text', required, value, onChange }) {
         required={required}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-background border border-divider rounded-2xl px-4 py-3.5 text-ink placeholder-muted/60 focus:border-primary focus:ring-4 focus:ring-primary/15 outline-none transition font-body"
+        className={`w-full bg-background border border-divider rounded-2xl px-4 ${compact ? 'py-2.5' : 'py-3.5'} text-ink placeholder-muted/60 focus:border-primary focus:ring-4 focus:ring-primary/15 outline-none transition font-body`}
       />
     </div>
   )
@@ -1723,48 +1814,68 @@ function Field({ label, type = 'text', required, value, onChange }) {
 /* ----------------------------------------------------------------
    Footer
 ---------------------------------------------------------------- */
-function Footer() {
+const SOCIAL_LINKS = [
+  {
+    label: 'Facebook',
+    href: 'https://www.facebook.com/GROUNDUPConstructingSustainableLandscapes',
+    path: 'M13.5 21v-7.5h2.53l.38-2.94H13.5V8.69c0-.85.24-1.43 1.46-1.43h1.56V4.63a20.9 20.9 0 0 0-2.27-.12c-2.25 0-3.79 1.37-3.79 3.9v2.16H7.92v2.94h2.54V21h3.04Z',
+  },
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/groundup.com.co/',
+    path: 'M12 7.38A4.62 4.62 0 1 0 12 16.62 4.62 4.62 0 0 0 12 7.38Zm0 7.62a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm5.88-7.8a1.08 1.08 0 1 1-2.16 0 1.08 1.08 0 0 1 2.16 0ZM21.94 8.3c-.07-1.44-.4-2.72-1.45-3.77S18.16 3.14 16.72 3.07C15.24 2.98 8.76 2.98 7.28 3.07 5.85 3.14 4.57 3.47 3.51 4.52S2.13 6.85 2.06 8.29c-.08 1.48-.08 5.94 0 7.42.07 1.44.4 2.72 1.45 3.77s2.33 1.38 3.77 1.45c1.48.09 7.96.09 9.44 0 1.44-.07 2.72-.4 3.77-1.45s1.38-2.33 1.45-3.77c.08-1.48.08-5.93 0-7.41Zm-1.92 9.05a3.04 3.04 0 0 1-1.71 1.71c-1.18.47-4 .36-5.31.36s-4.13.1-5.31-.36a3.04 3.04 0 0 1-1.71-1.71c-.47-1.18-.36-4-.36-5.31s-.1-4.13.36-5.31A3.04 3.04 0 0 1 5.69 5c1.18-.47 4-.36 5.31-.36s4.13-.1 5.31.36A3.04 3.04 0 0 1 18 6.69c.47 1.18.36 4 .36 5.31s.12 4.13-.34 5.35Z',
+  },
+]
+export function Footer() {
   return (
     <footer className="relative bg-deep text-white rounded-t-6xl mt-12 overflow-hidden">
       <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-64 w-[40rem] rounded-full bg-primary/20 blur-3xl" />
 
-      <div className="relative px-6 sm:px-10 lg:px-16 pt-20 pb-10 max-w-7xl mx-auto">
+      <div className="relative px-6 sm:px-10 lg:px-16 pt-16 pb-10 max-w-7xl mx-auto">
         {/* Top: big tagline */}
-        <div className="border-b border-white/10 pb-12 mb-12">
-          <h2 className="font-display font-semibold text-5xl sm:text-7xl md:text-8xl leading-[0.92] tracking-tight">
+        <div className="border-b border-white/10 pb-10 mb-10 flex flex-col sm:flex-row sm:items-end justify-between gap-8">
+          <h2 className="font-display font-semibold text-3xl sm:text-4xl md:text-5xl leading-[1.05] tracking-[0.2em]">
             Home to garden.
-            <span className="font-serif italic font-medium text-accent block">
+            <span className="font-display font-medium text-accent block">
               Nature to family.
             </span>
           </h2>
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mt-8 gap-6">
-            <p className="text-white/50 max-w-md">
-              Ground Up — bespoke landscape construction and architectural
-              garden design across Sydney North.
-            </p>
-            <a
-              href="#contact"
+          <a
+              href="/contact"
               className="inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-3.5 rounded-full self-start sm:self-auto border border-transparent hover:border-accent hover:-translate-y-0.5 transition-all duration-500"
             >
               Book a Consultation
               <ArrowRight className="h-4 w-4" />
             </a>
-          </div>
         </div>
 
         {/* Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-10">
           <div className="col-span-2">
-            <span className="font-serif italic text-2xl tracking-tight block mb-4">
-              Ground Up
-            </span>
-            <p className="font-serif italic text-white/70 text-lg max-w-xs">
-              We connect home to garden, nature to family.
+            <img src="/brand/GroundUp_Logo_White_Spaced.png" alt="Ground Up" className="h-6 w-auto" />
+            <p className="mt-5 text-white/55 text-sm leading-relaxed max-w-xs">
+              Bespoke landscape construction and architectural garden design for Sydney North&rsquo;s finest
+              residential properties.
             </p>
-            <p className="text-white/50 text-sm leading-relaxed max-w-xs mt-4">
-              Bespoke landscape construction and architectural garden design for Sydney
-              North's finest residential properties.
+            <p className="mt-7 font-mono text-[10px] uppercase tracking-[0.2em] text-primary-light">
+              Follow us
             </p>
+            <div className="mt-4 flex items-center gap-3">
+              {SOCIAL_LINKS.map(({ label, href, path }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Ground Up on ${label}`}
+                  className="h-11 w-11 rounded-full border border-white/20 flex items-center justify-center text-white/75 hover:text-white hover:border-white/60 transition-colors"
+                >
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
+                    <path d={path} />
+                  </svg>
+                </a>
+              ))}
+            </div>
           </div>
 
           <div>
@@ -1775,7 +1886,7 @@ function Footer() {
               {SERVICES_FULL.slice(0, 4).map((s, i) => (
                 <li key={i}>
                   <a
-                    href="#services"
+                    href={`/services/${s.slug}`}
                     className="text-white/65 hover:text-primary-light transition text-sm"
                   >
                     {s.title}
@@ -1790,9 +1901,10 @@ function Footer() {
               Company
             </p>
             <ul className="space-y-2.5">
-              <li><a href="#sustainability" className="text-white/65 hover:text-primary-light transition text-sm">Sustainability</a></li>
-              <li><a href="#process" className="text-white/65 hover:text-primary-light transition text-sm">Process</a></li>
-              <li><a href="#contact" className="text-white/65 hover:text-primary-light transition text-sm">Contact</a></li>
+              <li><a href="/about" className="text-white/65 hover:text-primary-light transition text-sm">About</a></li>
+              <li><a href="/projects" className="text-white/65 hover:text-primary-light transition text-sm">Projects</a></li>
+              <li><a href="/sustainability" className="text-white/65 hover:text-primary-light transition text-sm">Sustainability</a></li>
+              <li><a href="/contact" className="text-white/65 hover:text-primary-light transition text-sm">Contact</a></li>
             </ul>
           </div>
 
@@ -1814,7 +1926,7 @@ function Footer() {
               <li className="text-white/65 text-sm">Mosman, Sydney</li>
               <li>
                 <a
-                  href="https://www.instagram.com/groundup"
+                  href="https://www.instagram.com/groundup.com.co/"
                   target="_blank"
                   rel="noreferrer"
                   className="text-white/65 hover:text-primary-light transition text-sm"
@@ -1856,31 +1968,65 @@ function Footer() {
 /* ----------------------------------------------------------------
    App
 ---------------------------------------------------------------- */
-export default function App() {
+/* ----------------------------------------------------------------
+   Layout: nav + footer shared by every page
+---------------------------------------------------------------- */
+export function Layout({ children }) {
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+
+  // New page: start at the top and let ScrollTrigger re-measure
   useEffect(() => {
-    // Refresh ScrollTrigger after fonts/images load to recalc positions
+    window.scrollTo({ top: 0, behavior: 'instant' })
     const t1 = setTimeout(() => ScrollTrigger.refresh(), 200)
     const t2 = setTimeout(() => ScrollTrigger.refresh(), 1000)
     return () => {
       clearTimeout(t1)
       clearTimeout(t2)
     }
-  }, [])
+  }, [pathname])
+
+  // Plain <a href="/page"> links navigate client-side instead of reloading
+  useEffect(() => {
+    const onClick = (e) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+      const a = e.target.closest('a')
+      if (!a || a.target || a.hasAttribute('download')) return
+      const href = a.getAttribute('href')
+      if (!href || !href.startsWith('/') || href.startsWith('//')) return
+      e.preventDefault()
+      navigate(href)
+    }
+    document.addEventListener('click', onClick)
+    return () => document.removeEventListener('click', onClick)
+  }, [navigate])
 
   return (
     <div className="relative">
       <div className="noise-overlay" />
       <Navbar />
-      <main>
-        <Hero />
-        <Features />
-        <Pillars />
-        <Protocol />
-        <ServicesGrid />
-        <TrustSignals />
-        <ContactForm />
-      </main>
+      <main>{children}</main>
       <Footer />
     </div>
+  )
+}
+
+/* ----------------------------------------------------------------
+   Home page
+---------------------------------------------------------------- */
+export default function App() {
+  useEffect(() => {
+    document.title = 'Ground Up | Contemporary Landscaping and Garden Design Sydney North'
+  }, [])
+
+  return (
+    <>
+      <Hero />
+      <Features />
+      <ComplexLandscaping />
+      <Protocol />
+      <ServicesGrid />
+      <TrustSignals />
+    </>
   )
 }

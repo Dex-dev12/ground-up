@@ -9,8 +9,8 @@ export default function Terms() {
       {/* Simple header */}
       <header className="relative border-b border-divider">
         <div className="max-w-3xl mx-auto px-6 sm:px-10 py-8 flex items-center justify-between">
-          <Link to="/" className="font-serif italic text-xl sm:text-2xl tracking-tight text-ink">
-            Ground Up Landscaping
+          <Link to="/" aria-label="Ground Up home">
+            <img src="/brand/GroundUp_Logo_Spaced.png" alt="Ground Up" className="h-5 w-auto" />
           </Link>
           <Link
             to="/"

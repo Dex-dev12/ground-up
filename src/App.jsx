@@ -17,12 +17,13 @@ import {
   Building2,
   Sprout,
   Droplet,
-  Users2,
-  Images,
   Menu,
   X,
   Upload,
   ArrowDown,
+  BrickWall,
+  Grid2x2,
+  Waves,
 } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -38,64 +39,66 @@ const NAV_LINKS = [
   { label: 'Contact', href: '/contact' },
 ]
 
+// Angus's current service list (Oct 2026). Short descriptions are drafts for Angus to approve.
 export const SERVICES_FULL = [
   {
-    icon: Shovel,
-    slug: 'full-landscape-construction',
-    title: 'Full Landscape Construction',
-    includes: ['Retaining walls, and outdoor construction and design', 'Paving', 'Concrete services', 'Carpentry', 'Gates and fencing', 'Outdoor living, seating, and customized construction'],
-    text: 'End-to-end construction from groundwork to finished garden — earthworks, drainage, paving and planting delivered as one continuous build.',
-    image: '/images/rooftop-turf-terrace.jpg',
-  },
-  {
     icon: PencilRuler,
-    slug: 'landscape-design-full-renovation',
-    title: 'Landscape Design & Full Renovation',
-    includes: ['Landscape and garden design commercial and residential', 'Outdoor design includes BBQs and furnishings', 'Garden lighting space', 'Green Walls', 'Sensory Gardens', 'Vegetable Gardens'],
-    text: 'Concept through documentation. We refresh established gardens and reimagine tired outdoor spaces into something built for how you actually live.',
-    image: '/images/entry-garden-native-grasses.jpg',
+    slug: 'landscape-design',
+    title: 'Landscape Design',
+    includes: ['Site walk and consultation', 'Concept plans: layout, materials and plants', 'Plan revisions and approval', 'Residential and commercial design'],
+    text: 'We walk the site with you, then design the layout, materials and plants around your home and how you want to live outdoors.',
+    image: '/images/alfresco-pool-terrace.jpg',
   },
   {
-    icon: Mountain,
-    slug: 'structural-stone-masonry',
-    title: 'Structural Stone Masonry',
-    includes: ['Stonemasonry', 'Retaining walls, and outdoor construction and design', 'Paving', 'Concrete services'],
-    text: 'Retaining walls, steps, cladding and feature stonework — hand-built with locally sourced stone and real craftsmanship.',
+    icon: Shovel,
+    slug: 'landscape-construction',
+    title: 'Landscape Construction',
+    includes: ['Excavation and site preparation', 'Concrete services', 'Retaining walls', 'Driveways'],
+    text: 'Excavation, concrete, retaining walls and driveways: the groundwork and structure every garden is built on.',
+    image: '/images/excavator-at-work.jpg',
+  },
+  {
+    icon: BrickWall,
+    slug: 'stone-masonry',
+    title: 'Stone Masonry',
+    includes: ['Sandstone walls', 'Stone retaining walls', 'Steps and stairs', 'Feature stonework'],
+    text: 'Sandstone walls, steps and feature stonework, built by stone masons with real attention to detail.',
     image: '/images/stone-retaining-wall-steps.jpg',
   },
   {
-    icon: Building2,
-    slug: 'architectural-design',
-    title: 'Architectural Design',
-    includes: ['Landscape and garden design commercial and residential', 'Pool and water features', 'Corporate workplace gardens and green spaces', 'Events and outdoor landscape installations'],
-    text: 'We treat home and garden as a single composition, integrating structure, sightlines and material palette from the outset.',
-    image: '/images/pool-glass-fence-paving.jpg',
+    icon: Grid2x2,
+    slug: 'paving-tiling',
+    title: 'Paving & Tiling',
+    includes: ['Natural stone and sandstone paving', 'Crazy paving', 'Outdoor tiling', 'Paths, courtyards and terraces'],
+    text: 'Natural stone, sandstone and tiled surfaces for paths, courtyards, terraces and outdoor living areas.',
+    image: '/images/sandstone-pavers-turf.jpg',
   },
   {
     icon: Sprout,
-    slug: 'horticulture-planting',
-    title: 'Horticulture & Planting',
-    includes: ['Plant design and horticultural services', 'Tree and arborist services', 'Green Walls', 'Vegetable Gardens', 'Sensory Gardens'],
-    text: 'Species selection, soil health and seasonal planting plans — gardens chosen to thrive in their exact position, not just at handover.',
-    image: '/images/pool-boulder-garden-bed.jpg',
+    slug: 'plant-design-horticulture',
+    title: 'Plant Design & Horticulturist Services',
+    includes: ['Planting design', 'Horticultural advice', 'Garden beds and planters', 'Plants resilient to our changing climate'],
+    text: 'Planting plans from horticulturists, with plants chosen for your site, your aspect and our changing climate.',
+    image: '/images/rooftop-succulent-garden.jpg',
   },
   {
-    icon: Droplet,
-    slug: 'sustainable-garden-design',
-    title: 'Sustainable Garden Design',
-    includes: ['Irrigation systems', 'Solar lighting', 'Planting', 'Vegetable Gardens', 'Green Walls'],
-    text: 'Water-wise planting and climate-resilient materials, ethically sourced and built to perform through every Sydney season.',
-    image: '/images/hero-pool-retaining-wall.jpg',
+    icon: Waves,
+    slug: 'pool-renovations-surrounds',
+    title: 'Pool Renovations & Surrounds',
+    includes: ['Pool renovations', 'Pool coping and paving', 'Pool fencing', 'Surrounding walls and planting'],
+    text: 'Pool renovations and the landscaping around them, so the pool, paving, walls and planting work as one space.',
+    image: '/images/pool-sandstone-surrounds.jpg',
   },
 ]
 
+// Sharpest, highest-quality originals from Angus (used uncompressed)
 const HERO_IMAGES = [
-  { src: '/images/hero-pool-retaining-wall.jpg', alt: 'Sandstone retaining wall, pergola and pool in a Ground Up project, Sydney North' },
-  { src: '/images/entry-garden-native-grasses.jpg', alt: 'Architectural home entry with native grasses and stone edging, a Ground Up design' },
-  { src: '/images/stone-retaining-wall-steps.jpg', alt: 'Sandstone retaining wall with built-in bench seat and stone steps, a Ground Up build' },
-  { src: '/images/pool-boulder-garden-bed.jpg', alt: 'Finished pool and boulder retaining wall garden bed, a completed Ground Up project' },
-  { src: '/images/pool-glass-fence-paving.jpg', alt: 'Pool with glass fencing and natural stone paving, a Ground Up build' },
-  { src: '/images/rooftop-turf-terrace.jpg', alt: 'Rooftop turf terrace landscaping, a Ground Up project' },
+  { src: '/images/rooftop-lawn-planters.jpg', alt: 'Rooftop lawn lined with white planters, a Ground Up project' },
+  { src: '/images/balcony-planters.jpg', alt: 'Balcony with hedge planters and outdoor seating, a Ground Up project' },
+  { src: '/images/pool-sandstone-tiers.jpg', alt: 'Pool below tiered sandstone walls and steps, a Ground Up project' },
+  { src: '/images/terrace-palms-stone-paving.jpg', alt: 'Terrace garden with palms and stone paving, a Ground Up project' },
+  { src: '/images/gabion-walls-sleeper-beds.jpg', alt: 'Gabion walls and timber sleeper garden beds, a Ground Up project' },
+  { src: '/images/pool-lawn-glass-fence.jpg', alt: 'Pool with glass fencing beside a new lawn, a Ground Up project' },
 ]
 
 /* ----------------------------------------------------------------
@@ -829,8 +832,8 @@ function Features() {
         {/* Image */}
         <div className="feature-card relative overflow-hidden rounded-5xl aspect-[4/5] shadow-xl shadow-primary/10">
           <img
-            src="/images/stone-retaining-wall-steps.jpg"
-            alt="Sandstone retaining wall with built-in bench seat and stone steps, a Ground Up build"
+            src="/images/stepping-stones-lawn.jpg"
+            alt="Stone steps and stepping stones across a lawn, a Ground Up project"
             className="absolute inset-0 h-full w-full object-cover"
             loading="lazy"
           />
@@ -866,8 +869,8 @@ function ComplexLandscaping() {
         {/* Image */}
         <div className="complex-reveal relative overflow-hidden rounded-5xl aspect-[4/5] shadow-2xl shadow-black/20 order-2 lg:order-1">
           <img
-            src="/images/pool-glass-fence-paving.jpg"
-            alt="Pool with glass fencing and natural stone paving, a Ground Up build"
+            src="/images/stone-path-outdoor-fireplace.jpg"
+            alt="Stone path and outdoor fireplace in a Ground Up garden"
             className="absolute inset-0 h-full w-full object-cover"
             loading="lazy"
           />
@@ -1155,8 +1158,8 @@ export function Protocol() {
       title: 'Concept & Documentation',
       tagline: 'We draft the vision.',
       text: 'We draft a concept plan based on the ideas shared in our initial consult that includes layout, materials and plants.',
-      image: '/images/rooftop-turf-terrace.jpg',
-      alt: 'Rooftop turf terrace landscaping, a Ground Up project',
+      image: '/images/sandstone-wall-crazy-paving.jpg',
+      alt: 'Crazy paving beneath a sandstone block wall, a Ground Up project',
       meta: 'Step 2 / Plan',
     },
     {
@@ -1249,13 +1252,6 @@ export function Protocol() {
           will treasure. Our gardens are known for their architectural integrity, elegant design and lush,
           vibrant greenery. Don&rsquo;t hesitate to reach out to our lovely team.
         </p>
-        <a
-          href="/contact"
-          className="mt-8 inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-4 rounded-full border border-transparent hover:border-accent hover:-translate-y-0.5 shadow-xl shadow-primary/30 transition-all duration-500"
-        >
-          Book Your Consultation
-          <ArrowRight className="h-4 w-4" />
-        </a>
       </div>
     </section>
   )
@@ -1266,14 +1262,17 @@ export function Protocol() {
 ---------------------------------------------------------------- */
 export function ServicesGrid({
   exclude,
+  viewAll = false,
   eyebrow = 'Everything We Do',
   title = 'One team,',
   accentTitle = 'every discipline.',
   intro = 'With special attention to architecture, craftsmanship and detail, we endeavour to use local Australian materials that are ethically sourced and produced.',
 }) {
   const items = SERVICES_FULL.filter((svc) => svc.slug !== exclude)
-  // Five tiles (a service page hiding itself): 3 across, then 2 wider tiles
-  const five = items.length === 5
+  // Five tiles (a service page hiding itself): 3 across, then 2 wider tiles,
+  // unless a "View all services" tile fills the sixth spot
+  const showViewAll = viewAll && items.length === 5
+  const five = items.length === 5 && !showViewAll
   const ref = useRef(null)
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -1359,6 +1358,22 @@ export function ServicesGrid({
               </a>
             )
           })}
+          {showViewAll && (
+            <a
+              href="/services"
+              className="svc-tile group relative flex flex-col justify-between gap-10 bg-primary hover:bg-primary-dark transition-colors duration-500 p-7 sm:p-9 rounded-b-4xl sm:rounded-bl-none"
+            >
+              <div className="h-12 w-12 rounded-2xl bg-white/10 border border-white/25 flex items-center justify-center">
+                <ArrowUpRight className="h-5 w-5 text-white transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={2} />
+              </div>
+              <div>
+                <h3 className="font-display font-bold text-xl sm:text-2xl mb-3">View all services</h3>
+                <p className="text-white/65 text-sm leading-relaxed">
+                  See every service Ground Up offers, from design through to construction.
+                </p>
+              </div>
+            </a>
+          )}
         </div>
       </div>
     </section>
@@ -1388,23 +1403,20 @@ export function TrustSignals() {
     return () => observer.disconnect()
   }, [])
 
-  const badges = [
-    {
-      Icon: Users2,
-      title: 'One Multidisciplinary Team',
-      text: 'Architects, designers, stonemasons and horticulturists working as one crew on every project — not a chain of subcontractors.',
+  // Titles describe each photo; swap for real project names when Angus supplies them
+  const recent = {
+    feature: {
+      image: '/images/hero-pool-retaining-wall.jpg',
+      alt: 'Sandstone retaining walls, pergola and pool, a Ground Up project',
+      category: 'Stone Masonry',
+      title: 'Sandstone Walls & Pool',
     },
-    {
-      Icon: Leaf,
-      title: 'Sustainability-Led Sourcing',
-      text: 'Local, ethically sourced Australian materials and climate-resilient planting, chosen to perform through every Sydney season.',
-    },
-    {
-      Icon: Images,
-      title: 'A Portfolio On Request',
-      text: 'A full portfolio of completed Sydney North residential projects is available on request — ask us during your consultation.',
-    },
-  ]
+    list: [
+      { image: '/images/pool-glass-fence-paving.jpg', alt: 'Pool with glass fencing and natural stone paving', category: 'Pool Renovations & Surrounds', title: 'Pool & Stone Paving' },
+      { image: '/images/rooftop-turf-terrace.jpg', alt: 'Rooftop terrace with turf and planters', category: 'Landscape Design', title: 'Rooftop Terrace' },
+      { image: '/images/timber-deck-steps.jpg', alt: 'Hardwood timber deck and steps', category: 'Landscape Construction', title: 'Timber Deck & Steps' },
+    ],
+  }
 
   const testimonials = [
     { quote: 'Angus and his team were wonderful to work with.', name: 'Sophia & Stephen', place: 'Paddington' },
@@ -1413,54 +1425,76 @@ export function TrustSignals() {
   ]
 
   return (
-    <section ref={ref} className="relative py-14 sm:py-20 px-6">
+    <section ref={ref} className="relative pb-14 sm:pb-20 px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-8">
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary-dark">
-            ╱ Why Ground Up
-          </span>
-          <h2 className="font-display font-semibold text-3xl sm:text-4xl md:text-5xl text-ink mt-3 tracking-[0.2em]">
-            More than a build.
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-          {badges.map(({ Icon, title, text }, i) => (
-            <div
-              key={i}
-              style={{ transitionDelay: visible ? `${i * 120}ms` : '0ms' }}
-              className={`bg-white border border-divider rounded-4xl p-6 hover:border-primary/40 transition-all duration-700 ease-out shadow-sm ${
-                visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-              }`}
-            >
-              <Icon className="h-6 w-6 text-primary mb-3" strokeWidth={1.8} />
-              <h3 className="font-display font-bold text-lg text-ink mb-1.5">{title}</h3>
-              <p className="text-muted text-sm leading-relaxed">{text}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Full-bleed image moment — Ground Up + the 3 essentials */}
-        <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen h-[70vh] min-h-[420px] max-h-[720px] mb-16 sm:mb-24 overflow-hidden">
+        {/* Recent work: short photo banner, then a feature project and three more */}
+        <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-hidden bg-deep">
           <img
-            src="/images/pool-glass-fence-paving.jpg"
-            alt="Completed pool and garden landscape, a Ground Up project"
+            src="/images/texture-bamboo-leaves.jpg"
+            alt=""
             className="absolute inset-0 h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-deep/70 via-deep/35 to-deep/75" />
-
-          <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
-            <span className="font-display text-white text-4xl sm:text-6xl md:text-7xl tracking-[0.2em]">
-              See The Work We Have Done
-            </span>
-            <div className="mt-10">
-              <a
-                href="/contact"
-                className="inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-4 rounded-full border border-transparent hover:border-accent hover:-translate-y-0.5 shadow-2xl shadow-primary/40 hover:shadow-accent/25 transition-all duration-500"
-              >
-                View Portfolio
-              </a>
+          <div className="absolute inset-0 bg-gradient-to-r from-deep/90 via-deep/75 to-deep/55" />
+          <div className="relative max-w-6xl mx-auto px-6 py-14 sm:py-16 flex flex-col sm:flex-row sm:items-end justify-between gap-8">
+            <div>
+              <span className="font-mono text-xs uppercase tracking-[0.3em] text-accent">Recent work</span>
+              <h2 className="mt-3 font-display font-semibold text-white text-3xl sm:text-4xl md:text-5xl leading-[1.1] tracking-[0.2em]">
+                See the work we have done
+              </h2>
             </div>
+            <a
+              href="/projects"
+              className="shrink-0 self-start sm:self-auto inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-4 rounded-full border border-transparent hover:border-accent hover:-translate-y-0.5 shadow-2xl shadow-black/30 transition-all duration-500"
+            >
+              View Portfolio
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+
+        <div className="mt-10 mb-16 sm:mb-24 grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <a
+            href="/projects"
+            style={{ transitionDelay: visible ? '0ms' : '0ms' }}
+            className={`group relative lg:col-span-7 min-h-[320px] sm:min-h-[460px] overflow-hidden rounded-4xl bg-deep transition-all duration-700 ease-out ${
+              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            }`}
+          >
+            <img
+              src={recent.feature.image}
+              alt={recent.feature.alt}
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-deep/85 via-deep/10 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+              <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-accent">{recent.feature.category}</span>
+              <h3 className="mt-2 font-display font-semibold text-white text-xl sm:text-2xl tracking-[0.12em]">
+                {recent.feature.title}
+              </h3>
+            </div>
+          </a>
+
+          <div className="lg:col-span-5 flex flex-col gap-4">
+            {recent.list.map((item, i) => (
+              <a
+                key={item.title}
+                href="/projects"
+                style={{ transitionDelay: visible ? `${(i + 1) * 120}ms` : '0ms' }}
+                className={`group flex-1 flex items-center gap-5 bg-surface border border-divider rounded-4xl p-4 hover:border-primary/40 transition-all duration-700 ease-out ${
+                  visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                }`}
+              >
+                <div className="relative h-24 w-28 sm:h-28 sm:w-32 shrink-0 overflow-hidden rounded-3xl">
+                  <img src={item.image} alt={item.alt} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <span className="block font-mono text-[10px] uppercase tracking-[0.22em] text-primary-dark">{item.category}</span>
+                  <span className="mt-1.5 block font-body text-lg text-ink leading-snug">{item.title}</span>
+                </div>
+                <ArrowRight className="h-5 w-5 shrink-0 mr-2 text-ink/50 transition-transform group-hover:translate-x-1 group-hover:text-primary" />
+              </a>
+            ))}
           </div>
         </div>
 
@@ -1498,6 +1532,72 @@ export function TrustSignals() {
             Book a Consultation
             <ArrowRight className="h-4 w-4" />
           </a>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ----------------------------------------------------------------
+   Why Ground Up: photo + two points (homepage and About)
+   Wording drawn from the old ground-up.com.au About and homepage copy
+---------------------------------------------------------------- */
+const WHY_POINTS = [
+  {
+    title: 'One multidisciplinary team',
+    text: 'Architects, designers, structural landscapers, stone masons, carpenters and horticulturists, dedicated to delivering amazing gardens in every Sydney project.',
+  },
+  {
+    title: 'Sustainability-led sourcing',
+    text: 'Local Australian materials that are ethically sourced and produced, and plants chosen to be resilient to our changing climate.',
+  },
+]
+
+export function WhyGroundUp() {
+  const ref = useRef(null)
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.why-reveal', {
+        scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        stagger: 0.15,
+      })
+    }, ref)
+    return () => ctx.revert()
+  }, [])
+
+  return (
+    <section ref={ref} className="relative bg-background px-6 sm:px-10 lg:px-16 py-20 sm:py-28">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+        <div className="why-reveal lg:col-span-5 relative overflow-hidden rounded-5xl aspect-[4/5] shadow-xl shadow-black/10">
+          <img
+            src="/images/courtyard-palms-ground-up-ute.jpg"
+            alt="Ground Up work ute beside a paved courtyard planted with palms"
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        </div>
+        <div className="why-reveal lg:col-span-7">
+          <span className="inline-block font-mono text-xs uppercase tracking-[0.25em] text-primary-dark underline underline-offset-[6px] decoration-1 decoration-primary-dark/40">
+            Why Ground Up
+          </span>
+          <h2 className="mt-6 font-display font-semibold text-3xl sm:text-4xl text-ink leading-[1.1] tracking-[0.2em]">
+            More than a build.
+          </h2>
+          <div className="mt-8 border-t border-divider">
+            {WHY_POINTS.map((point, i) => (
+              <div key={point.title} className="grid grid-cols-[3rem_1fr] gap-4 py-7 border-b border-divider">
+                <span className="font-mono text-sm tracking-[0.2em] text-primary-dark">{String(i + 1).padStart(2, '0')}</span>
+                <div>
+                  <h3 className="font-body font-semibold text-xl text-ink">{point.title}</h3>
+                  <p className="mt-2 text-muted text-base sm:text-lg leading-relaxed">{point.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -1585,7 +1685,6 @@ export function EnquiryForm({ compact = false }) {
                   {svc.title}
                 </option>
               ))}
-              <option value="maintenance">Maintenance</option>
               <option value="other">Something else</option>
             </select>
           </div>
@@ -2026,6 +2125,7 @@ export default function App() {
       <ComplexLandscaping />
       <Protocol />
       <ServicesGrid />
+      <WhyGroundUp />
       <TrustSignals />
     </>
   )

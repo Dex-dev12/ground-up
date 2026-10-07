@@ -3,7 +3,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Navigate, useParams } from 'react-router-dom'
 import { ArrowRight, ArrowUpRight, MapPin } from 'lucide-react'
-import { EnquiryForm, Protocol, ScrollCue, ServicesGrid, SERVICES_FULL } from '../App.jsx'
+import { EnquiryForm, Protocol, ScrollCue, ServicesGrid, SERVICES_FULL, WhyGroundUp } from '../App.jsx'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -169,8 +169,8 @@ const TESTIMONIALS = [
     body: 'Their advice, commitment to their work, and attention to detail was impressive. We love the simple but stylish garden they helped us to create!',
     name: 'Sophia and Stephen',
     place: 'Paddington',
-    image: '/images/pool-boulder-garden-bed.jpg',
-    alt: 'Finished pool and boulder retaining wall garden bed, a completed Ground Up project',
+    image: '/images/stepping-stones-lawn.jpg',
+    alt: 'Stone steps and stepping stones across a lawn, a Ground Up project',
   },
   {
     headline:
@@ -178,8 +178,8 @@ const TESTIMONIALS = [
     body: 'The project involved material construction, structural demolition and garden restoration components with all challenges expertly overcome.',
     name: 'Ray',
     place: 'Neutral Bay',
-    image: '/images/pool-glass-fence-paving.jpg',
-    alt: 'Pool with glass fencing and natural stone paving, a Ground Up build',
+    image: '/images/pool-sandstone-tiers.jpg',
+    alt: 'Pool below tiered sandstone walls and steps, a Ground Up project',
   },
 ]
 
@@ -218,7 +218,7 @@ export function AboutPage() {
       </PageHero>
 
       <Band tone="white">
-        <Split reverse image="/images/stone-retaining-wall-steps.jpg" alt="Sandstone retaining wall with built-in bench seat and stone steps, a Ground Up build">
+        <Split reverse image="/images/timber-deck-steps.jpg" alt="Hardwood timber deck and steps, a Ground Up project">
           <Label>The Story</Label>
           <p className="mt-8 font-body text-2xl sm:text-3xl text-ink leading-snug">
             Ground Up is a sustainable landscape design business that specialises in contemporary
@@ -241,6 +241,8 @@ export function AboutPage() {
           </div>
         </Split>
       </Band>
+
+      <WhyGroundUp />
 
       {TESTIMONIALS.map((t, i) => (
         <Band key={t.name} tone={i % 2 === 0 ? 'earth' : 'white'}>
@@ -286,39 +288,6 @@ export function AboutPage() {
 /* ----------------------------------------------------------------
    Services
 ---------------------------------------------------------------- */
-const GARDEN_SERVICES = [
-  'Plant design and horticultural services',
-  'Irrigation and water features',
-  'Outdoor design includes BBQs and furnishings',
-  'Carpentry',
-  'Gates and fencing',
-  'Concrete services',
-  'Landscape and garden design commercial and residential',
-  'Retaining walls, and outdoor construction and design',
-  'Paving',
-  'Pool and water features',
-  'Outdoor living, seating, and customized construction',
-  'Stonemasonry',
-  'Garden lighting space',
-  'Events and outdoor landscape installations',
-  'Vegetable Gardens',
-  'Green Walls',
-  'Sensory Gardens',
-  'Corporate workplace gardens and green spaces',
-  'Tree and arborist services',
-  'Pools',
-]
-
-const PM_SERVICES = ['Site evaluation', 'Project management', 'Residential and Commercial project scoping', 'Council liaison']
-
-const MAINTENANCE_SERVICES = [
-  'High end Commercial and Residential management and consultation',
-  'Irrigation systems',
-  'Solar lighting',
-  'Planting',
-  'Maintenance',
-]
-
 export function ServicesPage() {
   return (
     <Page title="Services">
@@ -352,33 +321,6 @@ export function ServicesPage() {
         </Band>
       ))}
 
-      <Band tone="white">
-        <Split image="/images/rooftop-turf-terrace.jpg" alt="Rooftop turf terrace landscaping, a Ground Up project">
-          <Label>Gardens + Landscaping</Label>
-          <ServiceList items={GARDEN_SERVICES} />
-        </Split>
-      </Band>
-
-      <Band tone="earth">
-        <Split reverse image="/images/stone-retaining-wall-steps.jpg" alt="Sandstone retaining wall with built-in bench seat and stone steps, a Ground Up build">
-          <Label light>Project Management + Site Consultation</Label>
-          <ServiceList items={PM_SERVICES} light />
-        </Split>
-      </Band>
-
-      <Band tone="white">
-        <Split image="/images/entry-garden-native-grasses.jpg" alt="Architectural home entry with native grasses and stone edging, a Ground Up design">
-          <Label>Maintenance Management</Label>
-          {/* Wording copied as-is from the old site; it reads awkwardly and should be reviewed with Angus */}
-          <p className="mt-8 font-body text-xl sm:text-2xl text-ink leading-snug">
-            Ground Up&rsquo;s projects are renowned for being low maintenance and energy efficient as possible.
-            Whist not a priority for all of our clients this will inevitably both residential and commercial
-            landscaping design in light of more dynamic climatic influences.
-          </p>
-          <ServiceList items={MAINTENANCE_SERVICES} />
-        </Split>
-      </Band>
-
       <CTABand />
     </Page>
   )
@@ -398,6 +340,87 @@ const DETAIL_IMAGES = [
   '/images/texture-bamboo-leaves.jpg',
   '/images/texture-ferns.jpg',
 ]
+
+// Extra real job photos shown on each service page
+const GALLERIES = {
+  'landscape-design': [
+    { src: '/images/stepping-stones-lawn.jpg', alt: 'Stone steps and stepping stones across a lawn' },
+    { src: '/images/balcony-planters.jpg', alt: 'Balcony with hedge planters and outdoor seating' },
+    { src: '/images/terrace-palms-stone-paving.jpg', alt: 'Terrace garden with palms and stone paving' },
+  ],
+  'landscape-construction': [
+    { src: '/images/excavation-site-prep.jpg', alt: 'Excavation and site preparation by Ground Up' },
+    { src: '/images/concrete-slab-reinforcement.jpg', alt: 'Reinforcement mesh laid ready for a concrete slab' },
+    { src: '/images/concrete-path-pour.jpg', alt: 'Ground Up team pouring a concrete side path' },
+  ],
+  'stone-masonry': [
+    { src: '/images/sandstone-wall-crazy-paving.jpg', alt: 'Sandstone block wall above crazy paving' },
+    { src: '/images/gabion-walls-sleeper-beds.jpg', alt: 'Gabion stone walls and timber sleeper beds' },
+    { src: '/images/hero-pool-retaining-wall.jpg', alt: 'Sandstone retaining wall beside a pool' },
+  ],
+  'paving-tiling': [
+    { src: '/images/stone-path-outdoor-fireplace.jpg', alt: 'Stone path leading to an outdoor fireplace' },
+    { src: '/images/terrace-palms-stone-paving.jpg', alt: 'Stone paved terrace with palms' },
+    { src: '/images/sandstone-wall-crazy-paving.jpg', alt: 'Crazy paving beneath a sandstone block wall' },
+  ],
+  'plant-design-horticulture': [
+    { src: '/images/entry-garden-native-grasses.jpg', alt: 'Entry garden planted with native grasses' },
+    { src: '/images/balcony-planters.jpg', alt: 'Hedge planters on a balcony' },
+    { src: '/images/gabion-walls-sleeper-beds.jpg', alt: 'Raised timber sleeper garden beds' },
+  ],
+  'pool-renovations-surrounds': [
+    { src: '/images/pool-lawn-glass-fence.jpg', alt: 'Pool with glass fencing beside a new lawn' },
+    { src: '/images/pool-glass-fence-paving.jpg', alt: 'Pool with glass fencing and natural stone paving' },
+    { src: '/images/hero-pool-retaining-wall.jpg', alt: 'Pool with sandstone retaining walls' },
+  ],
+}
+
+// DRAFT copy for each service page, built from Angus's service list and the old
+// ground-up.com.au wording. Angus to review before launch.
+const SERVICE_COPY = {
+  'landscape-design': {
+    lead: 'Good landscape design starts on site. We walk the property with you, understand how you want to use the space and share initial ideas before anything is drawn.',
+    body: [
+      'From there we draft a concept plan covering layout, materials and plants, then revise it with you until it is right. Constant feedback is part of the process, so the final landscape plan reflects your brief and the architecture of your home.',
+      'We design residential and commercial spaces, and we are just as comfortable taking a backseat if you already have a clear vision and need a team to refine it and build it.',
+    ],
+  },
+  'landscape-construction': {
+    lead: 'A garden is only as good as what sits underneath it. Our team handles the structural work: excavation, site preparation, concrete, retaining walls and driveways.',
+    body: [
+      'Because the groundwork is done by the same team that finishes the garden, levels, drainage and concrete are set up properly for the paving, stonework and planting that follow.',
+      'Whether it is a new driveway, a retaining wall on a sloping block or a full site cut for a new garden, we manage the work from start to finish.',
+    ],
+  },
+  'stone-masonry': {
+    lead: 'Sandstone walls, steps and feature stonework give a landscape its structure and a sense of permanence.',
+    body: [
+      'Our stone masons build with real attention to detail, and wherever possible we use local Australian materials that are ethically sourced and produced.',
+      'From structural retaining walls on sloping North Shore blocks to built-in seating and feature walls, every piece of stonework is designed to suit the architecture of your home and to last.',
+    ],
+  },
+  'paving-tiling': {
+    lead: 'The right paving ties a garden together. We lay natural stone, sandstone, crazy paving and outdoor tiles for paths, courtyards, terraces and entertaining areas.',
+    body: [
+      'We help you choose materials that suit your home and how the space will be used, then lay them on a properly prepared base so they stay level and drain well.',
+      'Paving is often combined with planting, turf or stonework, such as sandstone pavers set in lawn or crazy paving beneath a sandstone wall, so it feels part of the garden rather than added on.',
+    ],
+  },
+  'plant-design-horticulture': {
+    lead: 'Plants bring a garden to life. Our horticulturists create planting plans for your site, your aspect and the way you want to live with the garden.',
+    body: [
+      'With the shifting nature of our climate, we use plants that are resilient to change, combining local and exotic species that attract beneficial insects and wildlife without becoming invasive.',
+      'We consider fragrance, texture and your aesthetic preferences, as well as shelter, sunlight and shade, so the garden can be enjoyed at all times of day.',
+    ],
+  },
+  'pool-renovations-surrounds': {
+    lead: 'A pool should feel like part of the garden. We renovate pools and landscape the spaces around them so the pool, paving, walls and planting work as one.',
+    body: [
+      'That can include new coping and paving, glass pool fencing, sandstone walls, steps, and planting that softens the edges and adds privacy.',
+      'We also look at how the pool area is used, from lounging in the sun to entertaining, and design the surrounds to make the most of it.',
+    ],
+  },
+}
 
 export function ServiceDetailPage() {
   const { slug } = useParams()
@@ -420,17 +443,28 @@ export function ServiceDetailPage() {
 
       <Band tone="white">
         <Split reverse image={svc.image} alt={`${svc.title}, a Ground Up project`}>
-          <Label>What&rsquo;s Included</Label>
+          <Label>About This Service</Label>
+          <p className="mt-6 font-body text-xl sm:text-2xl text-ink leading-snug">{SERVICE_COPY[svc.slug].lead}</p>
+          <div className={`mt-6 text-muted ${bodyText}`}>
+            {SERVICE_COPY[svc.slug].body.map((para) => (
+              <p key={para}>{para}</p>
+            ))}
+          </div>
+          <div className="mt-10">
+            <Label>What&rsquo;s Included</Label>
+          </div>
           <ServiceList items={svc.includes} />
-          <p className={`mt-8 text-muted ${bodyText}`}>
-            Ground Up is a fully integrated business providing end-to-end project management and landscaping
-            design, construction and maintenance.
-          </p>
         </Split>
+        <div className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {GALLERIES[svc.slug].map((g) => (
+            <Photo key={g.src} src={g.src} alt={g.alt} className="aspect-[4/3]" />
+          ))}
+        </div>
       </Band>
 
       <ServicesGrid
         exclude={svc.slug}
+        viewAll
         eyebrow="Other Services"
         title="Explore our"
         accentTitle="other services."
@@ -456,6 +490,12 @@ const PROJECTS = [
   { image: '/images/pool-boulder-garden-bed.jpg', title: 'Boulder Garden Bed', location: 'Lane Cove', alt: 'Finished pool and boulder retaining wall garden bed, a completed Ground Up project' },
   { image: '/images/rooftop-turf-terrace.jpg', title: 'Rooftop Terrace', location: 'Kirribilli', alt: 'Rooftop turf terrace landscaping, a Ground Up project' },
   { image: '/images/pool-glass-fence-paving.jpg', title: 'Pool & Stone Paving', location: 'Northbridge', alt: 'Pool with glass fencing and natural stone paving, a Ground Up build' },
+  { image: '/images/pool-sandstone-surrounds.jpg', title: 'Pool & Sandstone Surrounds', location: 'Castlecrag', alt: 'Pool with sandstone walls and paved surrounds, a Ground Up project' },
+  { image: '/images/alfresco-pool-terrace.jpg', title: 'Alfresco & Pool Terrace', location: 'Cammeray', alt: 'Covered alfresco terrace beside a pool, a Ground Up project' },
+  { image: '/images/sandstone-pavers-turf.jpg', title: 'Sandstone Pavers & Turf', location: 'Crows Nest', alt: 'Sandstone pavers set in turf, a Ground Up project' },
+  { image: '/images/sandstone-wall-crazy-paving.jpg', title: 'Sandstone Wall & Crazy Paving', location: 'Wollstonecraft', alt: 'Crazy paving beneath a sandstone block wall, a Ground Up project' },
+  { image: '/images/rooftop-succulent-garden.jpg', title: 'Rooftop Succulent Garden', location: 'North Sydney', alt: 'Rooftop garden with succulents in steel planters, a Ground Up project' },
+  { image: '/images/balcony-planters.jpg', title: 'Balcony Planters', location: 'Willoughby', alt: 'Balcony with hedge planters and outdoor seating, a Ground Up project' },
 ]
 
 export function ProjectsPage() {
@@ -507,7 +547,7 @@ export function ProjectsPage() {
       </Band>
 
       <Band tone="light">
-        <Split image="/images/stone-retaining-wall-steps.jpg" alt="Sandstone retaining wall with built-in bench seat and stone steps, a Ground Up build">
+        <Split image="/images/courtyard-palms-ground-up-ute.jpg" alt="Ground Up work ute beside a paved courtyard planted with palms">
           <h2 className="font-display font-semibold text-3xl sm:text-4xl text-ink leading-[1.1] tracking-[0.2em]">
             Landscape gardens in Sydney
           </h2>
@@ -564,7 +604,7 @@ export function SustainabilityPage() {
       </PageHero>
 
       <Band tone="white">
-        <Split reverse image="/images/pool-boulder-garden-bed.jpg" alt="Finished pool and boulder retaining wall garden bed, a completed Ground Up project">
+        <Split reverse image="/images/gabion-walls-sleeper-beds.jpg" alt="Gabion walls and timber sleeper vegetable beds, a Ground Up project">
           <h2 className="font-body font-semibold text-4xl sm:text-5xl text-ink leading-[1.05] tracking-tight">
             We prefer
             <span className="block font-light italic text-primary-dark">&lsquo;abundance&rsquo;.</span>
@@ -617,7 +657,7 @@ export function SustainabilityPage() {
       </Band>
 
       <Band tone="white">
-        <Split image="/images/hero-pool-retaining-wall.jpg" alt="Sandstone retaining wall, pergola and pool in a Ground Up project, Sydney North">
+        <Split image="/images/terrace-palms-stone-paving.jpg" alt="Terrace garden with palms and stone paving, a Ground Up project">
           <h2 className="font-display font-semibold text-3xl sm:text-4xl text-ink leading-[1.1] tracking-[0.2em]">
             Hospitals that heal
           </h2>
@@ -716,6 +756,34 @@ export function ContactPage() {
           </div>
         </div>
       </section>
+    </Page>
+  )
+}
+
+/* ----------------------------------------------------------------
+   404: any address that doesn't exist
+---------------------------------------------------------------- */
+export function NotFoundPage() {
+  return (
+    <Page title="Page not found">
+      <PageHeader eyebrow="404" title="Page not found" image="/images/texture-ferns.jpg" alt="Dense green fern fronds">
+        <p>Sorry, we couldn&rsquo;t find that page. It may have moved, or the link may be mistyped.</p>
+        <div className="!mt-8 flex flex-wrap gap-4">
+          <a
+            href="/"
+            className="inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-4 rounded-full border border-transparent hover:border-accent hover:-translate-y-0.5 transition-all duration-500"
+          >
+            Back to home
+            <ArrowRight className="h-4 w-4" />
+          </a>
+          <a
+            href="/contact"
+            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-white border border-white/25 hover:border-white/60 px-7 py-4 rounded-full font-semibold transition-colors"
+          >
+            Contact us
+          </a>
+        </div>
+      </PageHeader>
     </Page>
   )
 }

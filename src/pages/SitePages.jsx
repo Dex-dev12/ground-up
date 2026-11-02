@@ -466,18 +466,15 @@ const INSTAGRAM_URL = 'https://www.instagram.com/groundup.com.co/'
 // Titles describe what is in each photo and locations are EXAMPLES only;
 // swap both for the real project names and suburbs when Angus supplies them
 const PROJECTS = [
-  { image: '/images/hero-pool-retaining-wall.jpg', title: 'Sandstone Walls & Pool', location: 'Mosman', alt: 'Sandstone retaining wall, pergola and pool in a Ground Up project, Sydney North', span: 'lg:col-span-2 lg:row-span-2' },
-  { image: '/images/entry-garden-native-grasses.jpg', title: 'Native Grass Entry', location: 'Cremorne', alt: 'Architectural home entry with native grasses and stone edging, a Ground Up design' },
-  { image: '/images/stone-retaining-wall-steps.jpg', title: 'Stone Steps & Bench Seat', location: 'Neutral Bay', alt: 'Sandstone retaining wall with built-in bench seat and stone steps, a Ground Up build' },
-  { image: '/images/pool-boulder-garden-bed.jpg', title: 'Boulder Garden Bed', location: 'Lane Cove', alt: 'Finished pool and boulder retaining wall garden bed, a completed Ground Up project' },
-  { image: '/images/rooftop-turf-terrace.jpg', title: 'Rooftop Terrace', location: 'Kirribilli', alt: 'Rooftop turf terrace landscaping, a Ground Up project' },
-  { image: '/images/pool-glass-fence-paving.jpg', title: 'Pool & Stone Paving', location: 'Northbridge', alt: 'Pool with glass fencing and natural stone paving, a Ground Up build' },
-  { image: '/images/pool-sandstone-surrounds.jpg', title: 'Pool & Sandstone Surrounds', location: 'Castlecrag', alt: 'Pool with sandstone walls and paved surrounds, a Ground Up project' },
-  { image: '/images/alfresco-pool-terrace.jpg', title: 'Alfresco & Pool Terrace', location: 'Cammeray', alt: 'Covered alfresco terrace beside a pool, a Ground Up project' },
-  { image: '/images/sandstone-pavers-turf.jpg', title: 'Sandstone Pavers & Turf', location: 'Crows Nest', alt: 'Sandstone pavers set in turf, a Ground Up project' },
-  { image: '/images/sandstone-wall-crazy-paving.jpg', title: 'Sandstone Wall & Crazy Paving', location: 'Wollstonecraft', alt: 'Crazy paving beneath a sandstone block wall, a Ground Up project' },
-  { image: '/images/rooftop-succulent-garden.jpg', title: 'Rooftop Succulent Garden', location: 'North Sydney', alt: 'Rooftop garden with succulents in steel planters, a Ground Up project' },
-  { image: '/images/balcony-planters.jpg', title: 'Balcony Planters', location: 'Willoughby', alt: 'Balcony with hedge planters and outdoor seating, a Ground Up project' },
+  { image: '/images/project-hunters-hill-best-view.jpg', title: 'Best Landscape & Garden 2026', location: 'Hunters Hill', alt: 'Cottage garden with roses, clipped hedges and sandstone entry pillars, Hunters Hill', span: 'lg:col-span-2 lg:row-span-2' },
+  { image: '/images/project-elizabeth-bay-courtyard.jpg', title: 'Tropical Courtyard', location: 'Elizabeth Bay', alt: 'Stone paved dining courtyard surrounded by tropical planting, Elizabeth Bay' },
+  { image: '/images/project-mosman-pavements.jpg', title: 'Stone Pavement & Planting', location: 'Mosman', alt: 'Natural stone pavement lined with clipped shrubs, Mosman' },
+  { image: '/images/project-roseville-sandstone-pool.jpg', title: 'Sandstone Walls & Pool', location: 'Roseville', alt: 'Tiered sandstone walls and steps above a pool, Roseville' },
+  { image: '/images/project-double-bay-poolside.jpg', title: 'Poolside Terrace', location: 'Double Bay', alt: 'Lap pool beside a dining terrace and bamboo screen, Double Bay' },
+  { image: '/images/project-paddington-courtyard.jpg', title: 'Courtyard & Green Wall', location: 'Paddington', alt: 'Narrow courtyard with a tree, climbing green wall and stepping stones, Paddington' },
+  { image: '/images/project-lavender-bay-rooftop.jpg', title: 'Rooftop Planters', location: 'Lavender Bay', alt: 'Rooftop garden with succulents in round steel planters on river stones, Lavender Bay' },
+  { image: '/images/project-hunters-hill-pool-terrace.jpg', title: 'Pool & Stone Terrace', location: 'Hunters Hill', alt: 'Plunge pool and stone terrace beside a covered brick outdoor room, Hunters Hill' },
+  { image: '/images/project-taronga-zoo.jpg', title: 'Garden Construction', location: 'Taronga Zoo', alt: 'Garden beds under construction with boulders and steel edging, Taronga Zoo' },
 ]
 
 export function ProjectsPage() {
@@ -487,7 +484,7 @@ export function ProjectsPage() {
         <p>
           We specialise in creating quality landscape design that maximises your outdoor space. Our goal is to
           connect your internal world with the surrounding nature of your home or office. Browse our portfolio to
-          see some of our recent projects in Sydney&rsquo;s lower North Shore.
+          see some of our recent projects across Sydney.
         </p>
       </PageHeader>
 

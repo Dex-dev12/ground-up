@@ -3,7 +3,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Navigate, useParams } from 'react-router-dom'
 import { ArrowRight, ArrowUpRight, MapPin } from 'lucide-react'
-import { EnquiryForm, Protocol, ScrollCue, ServicesGrid, SERVICES_FULL, WhyGroundUp } from '../App.jsx'
+import { EnquiryForm, GoogleReviews, Protocol, ScrollCue, ServicesGrid, SERVICES_FULL, WhyGroundUp } from '../App.jsx'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -183,21 +183,6 @@ const TESTIMONIALS = [
   },
 ]
 
-const SHORT_TESTIMONIALS = [
-  {
-    quote:
-      'Ground Up has been servicing me for over 7 years, has included landscaping the property and sandstone block work, paving and designing our living courtyard, problem-solving, troubleshooting, and always reliable, well and top-notch service.',
-    name: 'James',
-    place: 'Mosman',
-  },
-  {
-    quote:
-      'Angus is the most courteous, reliable and professional landscaper I have ever dealt with. Angus’s extensive horticultural knowledge has been invaluable.',
-    name: 'Jenny',
-    place: 'Neutral Bay',
-  },
-]
-
 export function AboutPage() {
   return (
     <Page title="About">
@@ -268,16 +253,13 @@ export function AboutPage() {
       ))}
 
       <Band tone="light">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {SHORT_TESTIMONIALS.map((t) => (
-            <figure key={t.name} className="reveal bg-surface border border-divider rounded-5xl p-8 sm:p-10">
-              <blockquote className="font-body text-lg sm:text-xl text-ink leading-relaxed">&ldquo;{t.quote}&rdquo;</blockquote>
-              <figcaption className="mt-6 font-mono text-xs uppercase tracking-[0.25em] text-primary-dark">
-                {t.name} &middot; {t.place}
-              </figcaption>
-            </figure>
-          ))}
+        <div className="reveal text-center mb-10">
+          <Label>Google Reviews</Label>
+          <h2 className="mt-6 font-body text-2xl sm:text-3xl lg:text-4xl text-ink leading-snug">
+            Hear from the rest of our clients.
+          </h2>
         </div>
+        <GoogleReviews />
       </Band>
 
       <Protocol />

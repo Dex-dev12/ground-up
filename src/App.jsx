@@ -1398,12 +1398,6 @@ export function TrustSignals() {
     ],
   }
 
-  const testimonials = [
-    { quote: 'Angus and his team were wonderful to work with.', name: 'Sophia & Stephen', place: 'Paddington' },
-    { quote: 'Ground Up has been servicing me for over 7 years.', name: 'James', place: 'Mosman' },
-    { quote: 'Angus is the most courteous, reliable and professional landscaper.', name: 'Jenny', place: 'Neutral Bay' },
-  ]
-
   return (
     <section ref={ref} className="relative pb-14 sm:pb-20 px-6">
       <div className="max-w-6xl mx-auto">
@@ -1478,7 +1472,7 @@ export function TrustSignals() {
           </div>
         </div>
 
-        {/* Real client testimonials */}
+        {/* Live Google reviews */}
         <div className="text-center mb-10">
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary-dark">
             ╱ Hear From Our Clients
@@ -1487,22 +1481,7 @@ export function TrustSignals() {
             Relationships that last.
           </h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-          {testimonials.map((t, i) => (
-            <div
-              key={i}
-              style={{ transitionDelay: visible ? `${i * 120}ms` : '0ms' }}
-              className={`bg-background border border-divider rounded-3xl p-6 transition-all duration-700 ease-out ${
-                visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-              }`}
-            >
-              <p className="font-body text-ink text-base leading-snug">&ldquo;{t.quote}&rdquo;</p>
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary-dark mt-4">
-                {t.name} · {t.place}
-              </p>
-            </div>
-          ))}
-        </div>
+        <GoogleReviews className="mb-10" />
 
         <div className="text-center">
           <a
@@ -1515,6 +1494,73 @@ export function TrustSignals() {
         </div>
       </div>
     </section>
+  )
+}
+
+/* ----------------------------------------------------------------
+   Google reviews widget (homepage and About)
+   The script resizes the iframe from the widget's height messages,
+   so it has to be listening before the iframe loads.
+---------------------------------------------------------------- */
+const REVIEW_WIDGET_SCRIPT = 'https://reputationhub.site/reputation/assets/review-widget.js'
+const REVIEW_WIDGET_URL =
+  'https://reputationhub.site/reputation/widgets/review_widget/bngwBFMr4Vdk3Bxy2B0j?widgetId=6ae887d43456ec98c7d98ea4'
+
+let reviewScriptLoad
+function loadReviewScript() {
+  if (!reviewScriptLoad) {
+    reviewScriptLoad = new Promise((resolve) => {
+      const script = document.createElement('script')
+      script.src = REVIEW_WIDGET_SCRIPT
+      script.onload = resolve
+      script.onerror = resolve
+      document.body.appendChild(script)
+    })
+  }
+  return reviewScriptLoad
+}
+
+export function GoogleReviews({ className = '' }) {
+  const [ready, setReady] = useState(false)
+  const frameRef = useRef(null)
+
+  useEffect(() => {
+    let live = true
+    loadReviewScript().then(() => live && setReady(true))
+    return () => {
+      live = false
+    }
+  }, [])
+
+  // The widget changes the page height after load, so scroll positions need refreshing
+  useEffect(() => {
+    if (!ready || !frameRef.current) return undefined
+    let timer
+    const observer = new ResizeObserver(() => {
+      clearTimeout(timer)
+      timer = setTimeout(() => ScrollTrigger.refresh(), 300)
+    })
+    observer.observe(frameRef.current)
+    return () => {
+      clearTimeout(timer)
+      observer.disconnect()
+    }
+  }, [ready])
+
+  return (
+    <div className={`min-h-[320px] ${className}`}>
+      {ready && (
+        <iframe
+          ref={frameRef}
+          className="lc_reviews_widget block"
+          src={REVIEW_WIDGET_URL}
+          title="Google reviews of Ground Up"
+          frameBorder="0"
+          scrolling="no"
+          style={{ minWidth: '100%', width: '100%' }}
+        />
+      )}
+    </div>
   )
 }
 

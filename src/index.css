@@ -50,11 +50,11 @@
   .ring-gold { --ring-color: #A7ACB2; }
   .ring-green { --ring-color: #2C4A3B; }
   .hero-kenburns {
-    animation: kenburns 18s ease-in-out infinite alternate;
+    animation: kenburns 30s ease-in-out infinite alternate;
   }
   @keyframes kenburns {
     0%   { transform: scale(1); }
-    100% { transform: scale(1.12); }
+    100% { transform: scale(1.05); }
   }
   .stamp-spin { animation: stamp-spin 40s linear infinite; }
   .scroll-cue { animation: scroll-cue 1.8s ease-in-out infinite; }

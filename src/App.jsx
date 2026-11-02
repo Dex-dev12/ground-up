@@ -91,15 +91,10 @@ export const SERVICES_FULL = [
   },
 ]
 
-// Sharpest, highest-quality originals from Angus (used uncompressed)
-const HERO_IMAGES = [
-  { src: '/images/rooftop-lawn-planters.jpg', alt: 'Rooftop lawn lined with white planters, a Ground Up project' },
-  { src: '/images/balcony-planters.jpg', alt: 'Balcony with hedge planters and outdoor seating, a Ground Up project' },
-  { src: '/images/pool-sandstone-tiers.jpg', alt: 'Pool below tiered sandstone walls and steps, a Ground Up project' },
-  { src: '/images/terrace-palms-stone-paving.jpg', alt: 'Terrace garden with palms and stone paving, a Ground Up project' },
-  { src: '/images/gabion-walls-sleeper-beds.jpg', alt: 'Gabion walls and timber sleeper garden beds, a Ground Up project' },
-  { src: '/images/pool-lawn-glass-fence.jpg', alt: 'Pool with glass fencing beside a new lawn, a Ground Up project' },
-]
+const HERO_IMAGE = {
+  src: '/images/home-page-ground-up.jpg',
+  alt: 'Modern home with timber cladding behind a natural swimming pond, a Ground Up project',
+}
 
 /* ----------------------------------------------------------------
    Navbar
@@ -254,14 +249,6 @@ export function ScrollCue({ className = '' }) {
 ---------------------------------------------------------------- */
 function Hero() {
   const heroRef = useRef(null)
-  const [activeImg, setActiveImg] = useState(0)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveImg((i) => (i + 1) % HERO_IMAGES.length)
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -297,20 +284,13 @@ function Hero() {
       ref={heroRef}
       className="relative min-h-[100dvh] w-full overflow-hidden"
     >
-      {/* Background image carousel — real Ground Up project photos, slow zoom + crossfade */}
+      {/* Single background photo with a very slow, light zoom */}
       <div className="absolute inset-0">
-        {HERO_IMAGES.map((img, i) => (
-          <img
-            key={img.src}
-            src={img.src}
-            alt={img.alt}
-            className="hero-kenburns absolute inset-0 w-full h-full object-cover transition-opacity duration-[1400ms] ease-in-out"
-            style={{
-              opacity: i === activeImg ? 1 : 0,
-              animationDelay: `${i * -3}s`,
-            }}
-          />
-        ))}
+        <img
+          src={HERO_IMAGE.src}
+          alt={HERO_IMAGE.alt}
+          className="hero-kenburns absolute inset-0 w-full h-full object-cover"
+        />
         <div className="absolute inset-0 bg-gradient-to-tr from-deep/85 via-deep/45 to-primary/25" />
         <div className="absolute inset-0 bg-gradient-to-t from-deep via-deep/30 to-transparent" />
       </div>

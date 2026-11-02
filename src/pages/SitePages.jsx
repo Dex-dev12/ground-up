@@ -169,8 +169,8 @@ const TESTIMONIALS = [
     body: 'Their advice, commitment to their work, and attention to detail was impressive. We love the simple but stylish garden they helped us to create!',
     name: 'Sophia and Stephen',
     place: 'Paddington',
-    image: '/images/stepping-stones-lawn.jpg',
-    alt: 'Stone steps and stepping stones across a lawn, a Ground Up project',
+    image: '/images/ground-up-workers.jpg',
+    alt: 'Ground Up team building stone steps between gabion walls',
   },
   {
     headline:

@@ -1878,7 +1878,7 @@ export function ContactForm() {
                     Home turf
                   </span>
                   <span className="font-display font-semibold text-ink text-lg">
-                    Mosman, Sydney
+                    Sydney, Australia
                   </span>
                 </span>
               </div>
@@ -2048,7 +2048,7 @@ export function Footer() {
                   info@ground-up.com.au
                 </a>
               </li>
-              <li className="text-white/65 text-sm">Mosman, Sydney</li>
+              <li className="text-white/65 text-sm">Sydney, Australia</li>
               <li>
                 <a
                   href="https://www.instagram.com/groundup.com.co/"

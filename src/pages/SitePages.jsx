@@ -678,7 +678,7 @@ export function SustainabilityPage() {
    Contact
 ---------------------------------------------------------------- */
 const CONTACT_ROWS = [
-  { label: 'Address', value: 'Mosman Sydney, Australia' },
+  { label: 'Location', value: 'Sydney, Australia' },
   { label: 'Email', value: 'info@ground-up.com.au', href: 'mailto:info@ground-up.com.au' },
   { label: 'Phone', value: '0428 978 887', href: 'tel:+61428978887' },
   { label: 'Social', value: '@GROUNDUP', href: INSTAGRAM_URL, external: true },

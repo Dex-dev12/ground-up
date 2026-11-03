@@ -1129,8 +1129,8 @@ export function Protocol() {
       title: 'Design & Concept',
       tagline: 'We listen first.',
       text: 'We walk the site with you, understand your needs, and share initial solution ideas.',
-      image: '/images/entry-garden-native-grasses.jpg',
-      alt: 'Architectural home entry with native grasses and stone edging, a Ground Up design',
+      image: '/images/project-paddington-courtyard.jpg',
+      alt: 'Narrow courtyard with a tree, climbing green wall and stepping stones, Paddington',
       meta: 'Step 1 / Consult',
     },
     {

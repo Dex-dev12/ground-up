@@ -291,8 +291,8 @@ function Hero() {
           alt={HERO_IMAGE.alt}
           className="hero-kenburns absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-tr from-deep/85 via-deep/45 to-primary/25" />
-        <div className="absolute inset-0 bg-gradient-to-t from-deep via-deep/30 to-transparent" />
+        <div className="absolute inset-0 bg-deep/25" />
+        <div className="absolute inset-0 bg-gradient-to-t from-deep/95 via-deep/55 via-25% to-transparent to-60%" />
       </div>
 
       {/* Decorative floating leaf particles (subtle) */}

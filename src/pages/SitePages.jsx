@@ -466,7 +466,7 @@ const INSTAGRAM_URL = 'https://www.instagram.com/groundup.com.co/'
 // Titles describe what is in each photo and locations are EXAMPLES only;
 // swap both for the real project names and suburbs when Angus supplies them
 const PROJECTS = [
-  { image: '/images/project-hunters-hill-best-view.jpg', title: 'Best Landscape & Garden 2026', location: 'Hunters Hill', alt: 'Cottage garden with roses, clipped hedges and sandstone entry pillars, Hunters Hill', span: 'lg:col-span-2 lg:row-span-2' },
+  { image: '/images/project-hunters-hill-best-view.jpg', title: 'Best Landscape Garden, Hunters Hill Council', location: 'Hunters Hill', alt: 'Cottage garden with roses, clipped hedges and sandstone entry pillars, Hunters Hill', span: 'lg:col-span-2 lg:row-span-2' },
   { image: '/images/project-elizabeth-bay-courtyard.jpg', title: 'Tropical Courtyard', location: 'Elizabeth Bay', alt: 'Stone paved dining courtyard surrounded by tropical planting, Elizabeth Bay' },
   { image: '/images/project-mosman-pavements.jpg', title: 'Stone Pavement & Planting', location: 'Mosman', alt: 'Natural stone pavement lined with clipped shrubs, Mosman' },
   { image: '/images/project-roseville-sandstone-pool.jpg', title: 'Sandstone Walls & Pool', location: 'Roseville', alt: 'Tiered sandstone walls and steps above a pool, Roseville' },

@@ -636,7 +636,7 @@ export function SustainabilityPage() {
       </Band>
 
       <Band tone="white">
-        <Split image="/images/terrace-palms-stone-paving.jpg" alt="Terrace garden with palms and stone paving, a Ground Up project">
+        <Split image="/images/green-wall-planting.jpg" alt="Two people tending plants on a vertical garden wall">
           <h2 className="font-display font-semibold text-3xl sm:text-4xl text-ink leading-[1.1] tracking-[0.2em]">
             Hospitals that heal
           </h2>

@@ -55,7 +55,7 @@ export const SERVICES_FULL = [
     title: 'Landscape Construction',
     includes: ['Excavation and site preparation', 'Concrete services', 'Retaining walls', 'Driveways'],
     text: 'Excavation, concrete, retaining walls and driveways: the groundwork and structure every garden is built on.',
-    image: '/images/excavator-at-work.jpg',
+    image: '/images/ground-up-workers.jpg',
   },
   {
     icon: BrickWall,
@@ -71,7 +71,7 @@ export const SERVICES_FULL = [
     title: 'Paving & Tiling',
     includes: ['Natural stone and sandstone paving', 'Crazy paving', 'Outdoor tiling', 'Paths, courtyards and terraces'],
     text: 'Natural stone, sandstone and tiled surfaces for paths, courtyards, terraces and outdoor living areas.',
-    image: '/images/sandstone-pavers-turf.jpg',
+    image: '/images/sandstone-pavers-bench.jpg',
   },
   {
     icon: Sprout,
@@ -79,7 +79,7 @@ export const SERVICES_FULL = [
     title: 'Plant Design & Horticulturist Services',
     includes: ['Planting design', 'Horticultural advice', 'Garden beds and planters', 'Plants resilient to our changing climate'],
     text: 'Planting plans from horticulturists, with plants chosen for your site, your aspect and our changing climate.',
-    image: '/images/rooftop-succulent-garden.jpg',
+    image: '/images/plant-photo.jpg',
   },
   {
     icon: Waves,
@@ -87,7 +87,7 @@ export const SERVICES_FULL = [
     title: 'Pool Renovations & Surrounds',
     includes: ['Pool renovations', 'Pool coping and paving', 'Pool fencing', 'Surrounding walls and planting'],
     text: 'Pool renovations and the landscaping around them, so the pool, paving, walls and planting work as one space.',
-    image: '/images/pool-sandstone-surrounds.jpg',
+    image: '/images/pool.jpg',
   },
 ]
 

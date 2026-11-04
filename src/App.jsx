@@ -1451,7 +1451,7 @@ export function GoogleReviews({ className = '' }) {
 }
 
 /* ----------------------------------------------------------------
-   Why Ground Up: photo + two points (homepage and About)
+   Why Ground Up: centred text, two points (homepage and About)
    Wording drawn from the old ground-up.com.au About and homepage copy
 ---------------------------------------------------------------- */
 const WHY_POINTS = [
@@ -1483,33 +1483,21 @@ export function WhyGroundUp() {
 
   return (
     <section ref={ref} className="relative bg-background px-6 sm:px-10 lg:px-16 py-20 sm:py-28">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-        <div className="why-reveal lg:col-span-5 relative overflow-hidden rounded-5xl aspect-[4/5] shadow-xl shadow-black/10">
-          <img
-            src="/images/courtyard-palms-ground-up-ute.jpg"
-            alt="Ground Up work ute beside a paved courtyard planted with palms"
-            loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-        </div>
-        <div className="why-reveal lg:col-span-7">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.25em] text-primary-dark underline underline-offset-[6px] decoration-1 decoration-primary-dark/40">
-            Why Ground Up
-          </span>
-          <h2 className="mt-6 font-display font-semibold text-3xl sm:text-4xl text-ink leading-[1.1] tracking-[0.2em]">
-            More than a build.
-          </h2>
-          <div className="mt-8 border-t border-divider">
-            {WHY_POINTS.map((point, i) => (
-              <div key={point.title} className="grid grid-cols-[3rem_1fr] gap-4 py-7 border-b border-divider">
-                <span className="font-mono text-sm tracking-[0.2em] text-primary-dark">{String(i + 1).padStart(2, '0')}</span>
-                <div>
-                  <h3 className="font-body font-semibold text-xl text-ink">{point.title}</h3>
-                  <p className="mt-2 text-muted text-base sm:text-lg leading-relaxed">{point.text}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+      <div className="why-reveal max-w-5xl mx-auto text-center">
+        <span className="inline-block font-mono text-xs uppercase tracking-[0.25em] text-primary-dark underline underline-offset-[6px] decoration-1 decoration-primary-dark/40">
+          Why Ground Up
+        </span>
+        <h2 className="mt-6 font-display font-semibold text-3xl sm:text-4xl text-ink leading-[1.1] tracking-[0.2em]">
+          More than a build.
+        </h2>
+        <div className="mt-10 pt-10 border-t border-divider grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+          {WHY_POINTS.map((point, i) => (
+            <div key={point.title}>
+              <span className="font-mono text-sm tracking-[0.2em] text-primary-dark">{String(i + 1).padStart(2, '0')}</span>
+              <h3 className="mt-3 font-body font-semibold text-xl text-ink">{point.title}</h3>
+              <p className="mt-3 text-muted text-base sm:text-lg leading-relaxed">{point.text}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

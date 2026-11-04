@@ -51,10 +51,10 @@ function Label({ children, light }) {
   )
 }
 
-function Photo({ src, alt, className = 'aspect-[4/5]' }) {
+function Photo({ src, alt, className = 'aspect-[4/5]', imageClassName = '' }) {
   return (
     <div className={`reveal relative overflow-hidden rounded-5xl shadow-xl shadow-black/10 ${className}`}>
-      <img src={src} alt={alt} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+      <img src={src} alt={alt} loading="lazy" className={`absolute inset-0 h-full w-full object-cover ${imageClassName}`} />
     </div>
   )
 }
@@ -106,11 +106,11 @@ function PageHeader({ eyebrow, title, image, alt, children }) {
 }
 
 /** Earth Green band: photo beside a feature statement. */
-function PageHero({ label, image, alt, children }) {
+function PageHero({ label, image, alt, imageClassName, children }) {
   return (
     <section className="relative bg-earth text-white px-6 sm:px-10 lg:px-16 py-24 sm:py-32">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-        <Photo src={image} alt={alt} className="aspect-square" />
+        <Photo src={image} alt={alt} className="aspect-square" imageClassName={imageClassName} />
         <div className="reveal">
           <Label light>{label}</Label>
           <div className="mt-8">{children}</div>
@@ -169,8 +169,8 @@ const TESTIMONIALS = [
     body: 'Their advice, commitment to their work, and attention to detail was impressive. We love the simple but stylish garden they helped us to create!',
     name: 'Sophia and Stephen',
     place: 'Paddington',
-    image: '/images/ground-up-workers.jpg',
-    alt: 'Ground Up team building stone steps between gabion walls',
+    image: '/images/stepping-stones-lawn.jpg',
+    alt: 'Stone steps and stepping stones across a lawn, a Ground Up project',
   },
   {
     headline:
@@ -190,7 +190,12 @@ export function AboutPage() {
         <p>Contemporary landscaping and garden design, Sydney North.</p>
       </PageHeader>
 
-      <PageHero label="From the Owner" image="/images/texture-wall-planter.jpg" alt="Plants growing from a recessed planter in a white rendered wall">
+      <PageHero
+        label="From the Owner"
+        image="/images/ground-up-workers.jpg"
+        alt="Ground Up team building stone steps between gabion walls"
+        imageClassName="object-right"
+      >
         <h2 className="font-body font-light text-2xl sm:text-3xl lg:text-[2.1rem] leading-snug">
           &lsquo;Gardens and landscapes are no longer adjuncts to homes. These outdoor living spaces are
           priorities finding roots in workplaces, train stations, rooftops, restaurants, hotels, hospitals,

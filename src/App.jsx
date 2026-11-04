@@ -141,7 +141,7 @@ export function Navbar() {
                 to={link.href}
                 aria-current={(pathname === link.href || pathname.startsWith(`${link.href}/`)) ? 'page' : undefined}
                 className={`group relative text-sm font-medium tracking-tight pb-1 ${
-                  scrolled ? 'text-ink/70 hover:text-primary' : 'text-white/90 hover:text-white'
+                  scrolled ? 'text-ink/70 hover:text-primary' : 'text-white [text-shadow:0_1px_8px_rgba(16,20,15,0.65)]'
                 } transition-colors`}
               >
                 {link.label}
@@ -291,28 +291,19 @@ function Hero() {
           alt={HERO_IMAGE.alt}
           className="hero-kenburns absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-deep/25" />
-        <div className="absolute inset-0 bg-gradient-to-t from-deep/95 via-deep/55 via-25% to-transparent to-60%" />
-      </div>
-
-      {/* Decorative floating leaf particles (subtle) */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 right-[18%] h-2 w-2 rounded-full bg-accent/60 animate-float" style={{ animationDelay: '0s' }} />
-        <div className="absolute top-[55%] right-[10%] h-1.5 w-1.5 rounded-full bg-white/40 animate-float" style={{ animationDelay: '1.5s' }} />
-        <div className="absolute top-[40%] right-[26%] h-1 w-1 rounded-full bg-primary-light/70 animate-float" style={{ animationDelay: '3s' }} />
       </div>
 
       {/* Top frame */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 flex min-h-[100dvh] flex-col items-center justify-center text-center pt-24 pb-12">
+      <div className="relative z-10 flex min-h-[100dvh] flex-col items-center justify-center text-center pt-24 pb-12 [text-shadow:0_1px_12px_rgba(16,20,15,0.5)]">
         <div className="px-6 sm:px-10 lg:px-16 max-w-4xl">
           <div className="hero-meta mx-auto mb-8 sm:mb-10 h-28 w-28 sm:h-40 sm:w-40">
             <img
               src="/brand/stamp-white.png"
               alt="Constructing sustainable landscapes"
-              className="stamp-spin h-full w-full opacity-90"
+              className="stamp-spin h-full w-full [filter:drop-shadow(0_1px_6px_rgba(16,20,15,0.6))]"
             />
           </div>
           <h1 className="font-body text-white">
@@ -320,14 +311,14 @@ function Hero() {
               We connect home to garden,
             </span>
             <span
-              className="hero-line-2 block font-display font-light text-accent text-3xl sm:text-5xl md:text-6xl tracking-[0.12em] mt-3 sm:mt-4"
+              className="hero-line-2 block font-display font-light text-white text-3xl sm:text-5xl md:text-6xl tracking-[0.12em] mt-3 sm:mt-4"
               style={{ lineHeight: '1.05' }}
             >
               nature to family.
             </span>
           </h1>
 
-          <p className="hero-meta mx-auto max-w-xl text-white/75 text-base sm:text-lg mt-8 leading-relaxed">
+          <p className="hero-meta mx-auto max-w-xl text-white text-base sm:text-lg mt-8 leading-relaxed">
             Ground Up creates sustainable, contemporary gardens and landscapes designed
             for use all year round and unique to our customers.
           </p>
@@ -342,7 +333,7 @@ function Hero() {
             </a>
             <a
               href="tel:+61428978887"
-              className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md text-white border border-white/20 hover:border-accent hover:-translate-y-0.5 font-medium px-7 py-4 rounded-full transition-all duration-500"
+              className="inline-flex items-center justify-center gap-2 bg-deep/55 backdrop-blur-md text-white border border-white/30 hover:border-accent hover:-translate-y-0.5 font-medium px-7 py-4 rounded-full transition-all duration-500"
             >
               <Phone className="h-4 w-4" />
               +61 428 978 887
@@ -350,7 +341,7 @@ function Hero() {
           </div>
         </div>
 
-        <ScrollCue className="absolute bottom-8 right-6 sm:right-12 hidden md:flex" />
+        <ScrollCue className="absolute bottom-8 right-6 sm:right-12 hidden md:flex !text-ink/80 hover:!text-ink" />
       </div>
     </section>
   )

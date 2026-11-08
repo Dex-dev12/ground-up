@@ -70,7 +70,10 @@ function Band({ tone = 'light', className = '', pad = 'py-24 sm:py-32', children
 }
 
 /** Image on one side, content on the other. */
-function Split({ image, alt, reverse, compact, children }) {
+function Split({ image, alt, imageClassName, reverse, compact, children }) {
+  if (!image) {
+    return <div className="reveal max-w-3xl mx-auto text-center">{children}</div>
+  }
   return (
     <div
       className={`grid grid-cols-1 items-center ${
@@ -80,7 +83,7 @@ function Split({ image, alt, reverse, compact, children }) {
       }`}
     >
       <div className={reverse ? 'lg:order-2' : ''}>
-        <Photo src={image} alt={alt} className={compact ? 'aspect-[4/3]' : 'aspect-[4/5]'} />
+        <Photo src={image} alt={alt} className={compact ? 'aspect-[4/3]' : 'aspect-[4/5]'} imageClassName={imageClassName} />
       </div>
       <div className={`reveal ${reverse ? 'lg:order-1' : ''}`}>{children}</div>
     </div>
@@ -107,6 +110,16 @@ function PageHeader({ eyebrow, title, image, alt, children }) {
 
 /** Earth Green band: photo beside a feature statement. */
 function PageHero({ label, image, alt, imageClassName, children }) {
+  if (!image) {
+    return (
+      <section className="relative bg-earth text-white px-6 sm:px-10 lg:px-16 py-24 sm:py-32">
+        <div className="reveal max-w-4xl mx-auto text-center">
+          <Label light>{label}</Label>
+          <div className="mt-8">{children}</div>
+        </div>
+      </section>
+    )
+  }
   return (
     <section className="relative bg-earth text-white px-6 sm:px-10 lg:px-16 py-24 sm:py-32">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -169,8 +182,6 @@ const TESTIMONIALS = [
     body: 'Their advice, commitment to their work, and attention to detail was impressive. We love the simple but stylish garden they helped us to create!',
     name: 'Sophia and Stephen',
     place: 'Paddington',
-    image: '/images/stepping-stones-lawn.jpg',
-    alt: 'Stone steps and stepping stones across a lawn, a Ground Up project',
   },
   {
     headline:
@@ -178,7 +189,7 @@ const TESTIMONIALS = [
     body: 'The project involved material construction, structural demolition and garden restoration components with all challenges expertly overcome.',
     name: 'Ray',
     place: 'Neutral Bay',
-    image: '/images/pool-sandstone-tiers.jpg',
+    image: '/images/neutral-bay-pool-tiers.jpg',
     alt: 'Pool below tiered sandstone walls and steps, a Ground Up project',
   },
 ]
@@ -187,15 +198,10 @@ export function AboutPage() {
   return (
     <Page title="About">
       <PageHeader eyebrow="Who we are" title="About" image="/images/texture-sage.jpg" alt="Silvery sage leaves">
-        <p>Contemporary landscaping and garden design, Sydney North.</p>
+        <p>Contemporary landscaping and garden design, Sydney.</p>
       </PageHeader>
 
-      <PageHero
-        label="From the Owner"
-        image="/images/ground-up-workers.jpg"
-        alt="Ground Up team building stone steps between gabion walls"
-        imageClassName="object-right"
-      >
+      <PageHero label="From the Owner">
         <h2 className="font-body font-light text-2xl sm:text-3xl lg:text-[2.1rem] leading-snug">
           &lsquo;Gardens and landscapes are no longer adjuncts to homes. These outdoor living spaces are
           priorities finding roots in workplaces, train stations, rooftops, restaurants, hotels, hospitals,
@@ -203,12 +209,17 @@ export function AboutPage() {
           relax&rsquo;
         </h2>
         <p className="mt-8 font-mono text-xs uppercase tracking-[0.25em] text-white/75">
-          Angus Drover &middot; Owner, Ground Up
+          Angus Drover, Ground Up
         </p>
       </PageHero>
 
       <Band tone="white">
-        <Split reverse image="/images/timber-deck-steps.jpg" alt="Hardwood timber deck and steps, a Ground Up project">
+        <Split
+          reverse
+          image="/images/ground-up-workers.jpg"
+          alt="Ground Up team building stone steps between gabion walls"
+          imageClassName="object-right"
+        >
           <Label>The Story</Label>
           <p className="mt-8 font-body text-2xl sm:text-3xl text-ink leading-snug">
             Ground Up is a sustainable landscape design business that specialises in contemporary
@@ -485,11 +496,19 @@ const PROJECTS = [
 export function ProjectsPage() {
   return (
     <Page title="Projects">
-      <PageHeader eyebrow="Our work" title="Projects" image="/images/texture-palms.jpg" alt="Palm fronds">
+      <PageHeader eyebrow="Our work" title="Our Projects" image="/images/texture-palms.jpg" alt="Palm fronds">
         <p>
-          We specialise in creating quality landscape design that maximises your outdoor space. Our goal is to
-          connect your internal world with the surrounding nature of your home or office. Browse our portfolio to
-          see some of our recent projects across Sydney.
+          At Ground Up, we specialise in bespoke landscape design and construction, creating sophisticated,
+          functional outdoor spaces that complement the architecture of your property and seamlessly connect
+          indoor living with the natural environment.
+        </p>
+        <p>
+          Our projects reflect a commitment to timeless design, quality craftsmanship and meticulous attention
+          to detail, transforming outdoor spaces into beautiful, practical environments.
+        </p>
+        <p>
+          Explore our portfolio to discover a selection of our recently completed residential and commercial
+          landscaping projects across Sydney and the North Shore.
         </p>
       </PageHeader>
 
@@ -531,7 +550,7 @@ export function ProjectsPage() {
       </Band>
 
       <Band tone="light">
-        <Split image="/images/courtyard-palms-ground-up-ute.jpg" alt="Ground Up work ute beside a paved courtyard planted with palms">
+        <Split>
           <h2 className="font-display font-semibold text-3xl sm:text-4xl text-ink leading-[1.1] tracking-[0.2em]">
             Landscape gardens in Sydney
           </h2>
@@ -551,11 +570,7 @@ export function ProjectsPage() {
               construction, to maintenance, ensuring a seamless and easy experience. Trust Ground Up to create
               another beautiful outdoor space tailored to you.
             </p>
-            <p>
-              We pride ourselves on our craftsmanship and attention to detail. Ground Up has been successfully
-              operating in Sydney and the Lower North Shore for 14 years. You can trust us to bring serenity to
-              your home.
-            </p>
+            <p>We pride ourselves on our craftsmanship and attention to detail.</p>
           </div>
         </Split>
       </Band>
@@ -577,7 +592,7 @@ export function SustainabilityPage() {
         </p>
       </PageHeader>
 
-      <PageHero label="From the Owner" image="/images/rooftop-turf-terrace.jpg" alt="Rooftop turf terrace landscaping, a Ground Up project">
+      <PageHero label="From the Owner">
         <h2 className="font-body font-light text-2xl sm:text-3xl lg:text-[2.1rem] leading-snug">
           &lsquo;Sustainability is a fundamental of intelligent design and provides wellbeing for people and
           planet. Our clients are demanding we go to find this balance whilst meeting their brief&rsquo;
@@ -703,15 +718,11 @@ export function ContactPage() {
             <h1 className="mt-3 font-display font-semibold text-3xl sm:text-4xl leading-[1.1] tracking-[0.2em]">
               Contact
             </h1>
-            <p className="mt-4 text-white/80 text-base sm:text-lg leading-relaxed max-w-md">
-              We look forward to discussing your project or landscapes with you.
-            </p>
-
             <dl className="mt-7 border-t border-white/20">
               {CONTACT_ROWS.map((row) => (
                 <div key={row.label} className="py-3.5 border-b border-white/20">
                   <dt className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/55">{row.label}</dt>
-                  <dd className="mt-1 text-base sm:text-lg">
+                  <dd className="mt-1 text-sm sm:text-base">
                     {row.href ? (
                       <a
                         href={row.href}

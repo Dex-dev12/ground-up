@@ -1853,14 +1853,13 @@ export function Footer() {
       <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-64 w-[40rem] rounded-full bg-primary/20 blur-3xl" />
 
       <div className="relative px-6 sm:px-10 lg:px-16 pt-16 pb-10 max-w-7xl mx-auto">
-        {/* Top: big tagline */}
-        <div className="border-b border-white/10 pb-10 mb-10 flex flex-col sm:flex-row sm:items-end justify-between gap-8">
-          <h2 className="font-display font-semibold text-3xl sm:text-4xl md:text-5xl leading-[1.05] tracking-[0.2em]">
-            Home to garden.
-            <span className="font-display font-medium text-accent block">
-              Nature to family.
-            </span>
-          </h2>
+        {/* Top: brand stamp and booking button */}
+        <div className="border-b border-white/10 pb-10 mb-10 flex flex-col sm:flex-row sm:items-center justify-between gap-8">
+          <img
+            src="/brand/stamp-white.png"
+            alt="Constructing sustainable landscapes"
+            className="h-24 w-24 sm:h-28 sm:w-28 opacity-90"
+          />
           <a
               href="/contact"
               className="inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-3.5 rounded-full self-start sm:self-auto border border-transparent hover:border-accent hover:-translate-y-0.5 transition-all duration-500"
@@ -1875,8 +1874,8 @@ export function Footer() {
           <div className="col-span-2">
             <img src="/brand/GroundUp_Logo_White_Spaced.png" alt="Ground Up" className="h-6 w-auto" />
             <p className="mt-5 text-white/55 text-sm leading-relaxed max-w-xs">
-              Bespoke landscape construction and architectural garden design for Sydney North&rsquo;s finest
-              residential properties.
+              Specialists in bespoke landscape design and construction, creating sophisticated architectural
+              gardens and exceptional outdoor living spaces for Sydney and surrounding areas.
             </p>
             <p className="mt-7 font-mono text-[10px] uppercase tracking-[0.2em] text-primary-light">
               Follow us
@@ -1961,15 +1960,7 @@ export function Footer() {
 
         {/* Bottom */}
         <div className="mt-14 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-          <div className="flex items-center gap-2.5">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping" />
-              <span className="relative h-2 w-2 rounded-full bg-emerald-400" />
-            </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/60">
-              Accepting New Projects · Sydney North
-            </span>
-          </div>
+          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/60">ABN 70 624 068 257</span>
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-white/50 text-xs font-mono">
             <Link to="/privacy" className="hover:text-primary-light transition">
@@ -2058,7 +2049,7 @@ export function Layout({ children }) {
 ---------------------------------------------------------------- */
 export default function App() {
   useEffect(() => {
-    document.title = 'Ground Up | Contemporary Landscaping and Garden Design Sydney North'
+    document.title = 'Ground Up | Contemporary Landscaping and Garden Design Sydney'
   }, [])
 
   return (

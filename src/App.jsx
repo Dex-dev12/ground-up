@@ -803,8 +803,8 @@ function Features() {
         {/* Image */}
         <div className="feature-card relative overflow-hidden rounded-5xl aspect-[4/5] shadow-xl shadow-primary/10">
           <img
-            src="/images/stepping-stones-lawn.jpg"
-            alt="Stone steps and stepping stones across a lawn, a Ground Up project"
+            src="/images/outdoor-living-studio-courtyard.jpg"
+            alt="Sandstone paved courtyard with a built-in bench and garden beds beside a dark clad studio"
             className="absolute inset-0 h-full w-full object-cover"
             loading="lazy"
           />
@@ -815,7 +815,7 @@ function Features() {
 }
 
 /* ----------------------------------------------------------------
-   Complex Landscaping: text copied word for word from the Ground Up homepage
+   Complex Landscaping: wording supplied by Angus (Nov 2026)
 ---------------------------------------------------------------- */
 function ComplexLandscaping() {
   const sectionRef = useRef(null)
@@ -840,8 +840,8 @@ function ComplexLandscaping() {
         {/* Image */}
         <div className="complex-reveal relative overflow-hidden rounded-5xl aspect-[4/5] shadow-2xl shadow-black/20 order-2 lg:order-1">
           <img
-            src="/images/stone-path-outdoor-fireplace.jpg"
-            alt="Stone path and outdoor fireplace in a Ground Up garden"
+            src="/images/complex-landscaping-fern-wall.jpg"
+            alt="Lush staghorn ferns and tropical planting above a stone water feature"
             className="absolute inset-0 h-full w-full object-cover"
             loading="lazy"
           />
@@ -849,21 +849,30 @@ function ComplexLandscaping() {
 
         {/* Text */}
         <div className="complex-reveal order-1 lg:order-2">
-          <h2 className="font-display font-semibold text-3xl sm:text-4xl md:text-5xl text-white leading-[1.1] tracking-[0.2em]">
-            Complex landscaping services Sydney
+          <h2 className="font-display font-semibold text-2xl sm:text-3xl md:text-4xl text-white leading-[1.15] tracking-[0.16em]">
+            Expertise in Complex Landscape Design &amp; Construction
           </h2>
           <div className="mt-8 space-y-5 text-white/90 text-base sm:text-lg leading-relaxed max-w-xl">
             <p>
-              Ground Up creates functional living spaces that connect your private home with the beauty of the
-              natural world. Our goal is to provide our clients with an environment that they can comfortably
-              laze around and read a book in, or use to host celebrations with family and friends. We are
-              committed to creating architectural urban and suburban outdoor spaces that add enjoyment,
-              imagination and value to your property.
+              From contemporary urban courtyards and architectural gardens to large-scale residential landscaping
+              projects, Ground Up has the experience and technical expertise to deliver even the most challenging
+              landscape transformations.
             </p>
             <p>
-              Our gardens are sleek and timeless. We are enthusiastic about all our projects and you can be
-              assured that our team will approach your vision with passion and professionalism. Our collective
-              experience allows us to tackle even the most complex projects with confidence.
+              Our designs are timeless, sophisticated and thoughtfully integrated with the surrounding
+              architecture and natural environment.
+            </p>
+            <p>
+              We take pride in every project, combining innovative design, premium materials and skilled
+              workmanship to achieve outstanding results.
+            </p>
+            <p>
+              With a commitment to professionalism, clear communication and meticulous attention to detail, our
+              experienced team manages each stage of the landscaping process, ensuring your outdoor space is
+              completed to the highest standards.
+            </p>
+            <p className="text-white font-medium">
+              Ground Up &ndash; Creating Exceptional Outdoor Living Spaces Across Sydney.
             </p>
           </div>
         </div>
@@ -1138,8 +1147,8 @@ export function Protocol() {
       title: 'Refinement & Approval',
       tagline: 'We build it together.',
       text: 'We revise the draft with you and get feedback before progressing onto landscape plan approval. Constant feedback is crucial to customer satisfaction, therefore, this step is one of the most important.',
-      image: '/images/pool-boulder-garden-bed.jpg',
-      alt: 'Finished pool and boulder retaining wall garden bed, a completed Ground Up project',
+      image: '/images/refinement-pool-glass-fence.jpg',
+      alt: 'Pool with glass fencing, stone paving and a new garden bed, a completed Ground Up project',
       meta: 'Step 3 / Approve',
     },
   ]
@@ -1218,11 +1227,24 @@ export function Protocol() {
       </div>
 
       <div className="max-w-3xl mx-auto mt-20 sm:mt-28 px-2 text-center">
-        <p className="text-muted text-lg sm:text-xl leading-relaxed">
-          You can trust Ground Up to create a home environment that yourself, your family and your friends
-          will treasure. Our gardens are known for their architectural integrity, elegant design and lush,
-          vibrant greenery. Don&rsquo;t hesitate to reach out to our lovely team.
-        </p>
+        <div className="space-y-5 text-muted text-lg sm:text-xl leading-relaxed">
+          <p>
+            Trust Ground Up to transform your outdoor space into a beautiful, functional environment that you,
+            your family and friends will enjoy for years to come.
+          </p>
+          <p>
+            Our landscapes combine architectural elegance, timeless design and abundant, vibrant planting to
+            create sophisticated outdoor living spaces that complement your home and lifestyle.
+          </p>
+          <p>
+            With a passion for exceptional craftsmanship and attention to detail, our experienced team is
+            dedicated to bringing your vision to life.
+          </p>
+          <p className="text-ink">
+            Contact Ground Up today to discuss your landscaping project and discover how we can transform your
+            outdoor space.
+          </p>
+        </div>
       </div>
     </section>
   )

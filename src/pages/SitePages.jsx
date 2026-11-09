@@ -189,7 +189,7 @@ const TESTIMONIALS = [
     body: 'The project involved material construction, structural demolition and garden restoration components with all challenges expertly overcome.',
     name: 'Ray',
     place: 'Neutral Bay',
-    image: '/images/neutral-bay-pool-tiers.jpg',
+    image: '/images/neutral-bay-pool-tiers.webp',
     alt: 'Pool below tiered sandstone walls and steps, a Ground Up project',
   },
 ]
@@ -197,7 +197,7 @@ const TESTIMONIALS = [
 export function AboutPage() {
   return (
     <Page title="About">
-      <PageHeader eyebrow="Who we are" title="About" image="/images/texture-sage.jpg" alt="Silvery sage leaves">
+      <PageHeader eyebrow="Who we are" title="About" image="/images/texture-sage.webp" alt="Silvery sage leaves">
         <p>Contemporary landscaping and garden design, Sydney.</p>
       </PageHeader>
 
@@ -216,7 +216,7 @@ export function AboutPage() {
       <Band tone="white">
         <Split
           reverse
-          image="/images/ground-up-workers.jpg"
+          image="/images/ground-up-workers.webp"
           alt="Ground Up team building stone steps between gabion walls"
           imageClassName="object-right"
         >
@@ -289,7 +289,7 @@ export function AboutPage() {
 export function ServicesPage() {
   return (
     <Page title="Services">
-      <PageHeader eyebrow="What we do" title="Services" image="/images/texture-wet-leaves.jpg" alt="Green leaves covered in raindrops">
+      <PageHeader eyebrow="What we do" title="Services" image="/images/texture-wet-leaves.webp" alt="Green leaves covered in raindrops">
         <p>
           Ground Up is a fully integrated business providing end-to-end project management and landscaping
           design, construction and maintenance. We also provide project management consultancy services to
@@ -331,45 +331,45 @@ export function ServicesPage() {
    copy and dedicated photos per service when available.
 ---------------------------------------------------------------- */
 const DETAIL_IMAGES = [
-  '/images/texture-concrete-plant.jpg',
-  '/images/texture-wall-planter.jpg',
-  '/images/texture-dark-leaves.jpg',
-  '/images/texture-succulents.jpg',
-  '/images/texture-bamboo-leaves.jpg',
-  '/images/texture-ferns.jpg',
+  '/images/texture-concrete-plant.webp',
+  '/images/texture-wall-planter.webp',
+  '/images/texture-dark-leaves.webp',
+  '/images/texture-succulents.webp',
+  '/images/texture-bamboo-leaves.webp',
+  '/images/texture-ferns.webp',
 ]
 
 // Extra real job photos shown on each service page
 const GALLERIES = {
   'landscape-design': [
-    { src: '/images/stepping-stones-lawn.jpg', alt: 'Stone steps and stepping stones across a lawn' },
-    { src: '/images/balcony-planters.jpg', alt: 'Balcony with hedge planters and outdoor seating' },
-    { src: '/images/terrace-palms-stone-paving.jpg', alt: 'Terrace garden with palms and stone paving' },
+    { src: '/images/stepping-stones-lawn.webp', alt: 'Stone steps and stepping stones across a lawn' },
+    { src: '/images/balcony-planters.webp', alt: 'Balcony with hedge planters and outdoor seating' },
+    { src: '/images/terrace-palms-stone-paving.webp', alt: 'Terrace garden with palms and stone paving' },
   ],
   'landscape-construction': [
-    { src: '/images/excavation-site-prep.jpg', alt: 'Excavation and site preparation by Ground Up' },
-    { src: '/images/concrete-slab-reinforcement.jpg', alt: 'Reinforcement mesh laid ready for a concrete slab' },
-    { src: '/images/concrete-path-pour.jpg', alt: 'Ground Up team pouring a concrete side path' },
+    { src: '/images/excavation-site-prep.webp', alt: 'Excavation and site preparation by Ground Up' },
+    { src: '/images/concrete-slab-reinforcement.webp', alt: 'Reinforcement mesh laid ready for a concrete slab' },
+    { src: '/images/concrete-path-pour.webp', alt: 'Ground Up team pouring a concrete side path' },
   ],
   'stone-masonry': [
-    { src: '/images/sandstone-wall-crazy-paving.jpg', alt: 'Sandstone block wall above crazy paving' },
-    { src: '/images/gabion-walls-sleeper-beds.jpg', alt: 'Gabion stone walls and timber sleeper beds' },
-    { src: '/images/hero-pool-retaining-wall.jpg', alt: 'Sandstone retaining wall beside a pool' },
+    { src: '/images/sandstone-wall-crazy-paving.webp', alt: 'Sandstone block wall above crazy paving' },
+    { src: '/images/gabion-walls-sleeper-beds.webp', alt: 'Gabion stone walls and timber sleeper beds' },
+    { src: '/images/hero-pool-retaining-wall.webp', alt: 'Sandstone retaining wall beside a pool' },
   ],
   'paving-tiling': [
-    { src: '/images/stone-path-outdoor-fireplace.jpg', alt: 'Stone path leading to an outdoor fireplace' },
-    { src: '/images/terrace-palms-stone-paving.jpg', alt: 'Stone paved terrace with palms' },
-    { src: '/images/sandstone-wall-crazy-paving.jpg', alt: 'Crazy paving beneath a sandstone block wall' },
+    { src: '/images/stone-path-outdoor-fireplace.webp', alt: 'Stone path leading to an outdoor fireplace' },
+    { src: '/images/terrace-palms-stone-paving.webp', alt: 'Stone paved terrace with palms' },
+    { src: '/images/sandstone-wall-crazy-paving.webp', alt: 'Crazy paving beneath a sandstone block wall' },
   ],
   'plant-design-horticulture': [
-    { src: '/images/entry-garden-native-grasses.jpg', alt: 'Entry garden planted with native grasses' },
-    { src: '/images/balcony-planters.jpg', alt: 'Hedge planters on a balcony' },
-    { src: '/images/gabion-walls-sleeper-beds.jpg', alt: 'Raised timber sleeper garden beds' },
+    { src: '/images/entry-garden-native-grasses.webp', alt: 'Entry garden planted with native grasses' },
+    { src: '/images/balcony-planters.webp', alt: 'Hedge planters on a balcony' },
+    { src: '/images/gabion-walls-sleeper-beds.webp', alt: 'Raised timber sleeper garden beds' },
   ],
   'pool-renovations-surrounds': [
-    { src: '/images/pool-lawn-glass-fence.jpg', alt: 'Pool with glass fencing beside a new lawn' },
-    { src: '/images/pool-glass-fence-paving.jpg', alt: 'Pool with glass fencing and natural stone paving' },
-    { src: '/images/hero-pool-retaining-wall.jpg', alt: 'Pool with sandstone retaining walls' },
+    { src: '/images/pool-lawn-glass-fence.webp', alt: 'Pool with glass fencing beside a new lawn' },
+    { src: '/images/pool-glass-fence-paving.webp', alt: 'Pool with glass fencing and natural stone paving' },
+    { src: '/images/hero-pool-retaining-wall.webp', alt: 'Pool with sandstone retaining walls' },
   ],
 }
 
@@ -482,21 +482,21 @@ const INSTAGRAM_URL = 'https://www.instagram.com/groundup.com.co/'
 // Titles describe what is in each photo and locations are EXAMPLES only;
 // swap both for the real project names and suburbs when Angus supplies them
 const PROJECTS = [
-  { image: '/images/project-hunters-hill-best-view.jpg', title: 'Best Landscape Garden, Hunters Hill Council', location: 'Hunters Hill', alt: 'Cottage garden with roses, clipped hedges and sandstone entry pillars, Hunters Hill', span: 'lg:col-span-2 lg:row-span-2' },
-  { image: '/images/project-elizabeth-bay-courtyard.jpg', title: 'Tropical Courtyard', location: 'Elizabeth Bay', alt: 'Stone paved dining courtyard surrounded by tropical planting, Elizabeth Bay' },
-  { image: '/images/project-mosman-pavements.jpg', title: 'Stone Pavement & Planting', location: 'Mosman', alt: 'Natural stone pavement lined with clipped shrubs, Mosman' },
-  { image: '/images/project-roseville-sandstone-pool.jpg', title: 'Sandstone Walls & Pool', location: 'Roseville', alt: 'Tiered sandstone walls and steps above a pool, Roseville' },
-  { image: '/images/project-double-bay-poolside.jpg', title: 'Poolside Terrace', location: 'Double Bay', alt: 'Lap pool beside a dining terrace and bamboo screen, Double Bay' },
-  { image: '/images/project-paddington-courtyard.jpg', title: 'Courtyard & Green Wall', location: 'Paddington', alt: 'Narrow courtyard with a tree, climbing green wall and stepping stones, Paddington' },
-  { image: '/images/project-lavender-bay-rooftop.jpg', title: 'Rooftop Planters', location: 'Lavender Bay', alt: 'Rooftop garden with succulents in round steel planters on river stones, Lavender Bay' },
-  { image: '/images/project-hunters-hill-pool-terrace.jpg', title: 'Pool & Stone Terrace', location: 'Hunters Hill', alt: 'Plunge pool and stone terrace beside a covered brick outdoor room, Hunters Hill' },
-  { image: '/images/project-taronga-zoo.jpg', title: 'Garden Construction', location: 'Taronga Zoo', alt: 'Garden beds under construction with boulders and steel edging, Taronga Zoo' },
+  { image: '/images/project-hunters-hill-best-view.webp', title: 'Best Landscape Garden, Hunters Hill Council', location: 'Hunters Hill', alt: 'Cottage garden with roses, clipped hedges and sandstone entry pillars, Hunters Hill', span: 'lg:col-span-2 lg:row-span-2' },
+  { image: '/images/project-elizabeth-bay-courtyard.webp', title: 'Tropical Courtyard', location: 'Elizabeth Bay', alt: 'Stone paved dining courtyard surrounded by tropical planting, Elizabeth Bay' },
+  { image: '/images/project-mosman-pavements.webp', title: 'Stone Pavement & Planting', location: 'Mosman', alt: 'Natural stone pavement lined with clipped shrubs, Mosman' },
+  { image: '/images/project-roseville-sandstone-pool.webp', title: 'Sandstone Walls & Pool', location: 'Roseville', alt: 'Tiered sandstone walls and steps above a pool, Roseville' },
+  { image: '/images/project-double-bay-poolside.webp', title: 'Poolside Terrace', location: 'Double Bay', alt: 'Lap pool beside a dining terrace and bamboo screen, Double Bay' },
+  { image: '/images/project-paddington-courtyard.webp', title: 'Courtyard & Green Wall', location: 'Paddington', alt: 'Narrow courtyard with a tree, climbing green wall and stepping stones, Paddington' },
+  { image: '/images/project-lavender-bay-rooftop.webp', title: 'Rooftop Planters', location: 'Lavender Bay', alt: 'Rooftop garden with succulents in round steel planters on river stones, Lavender Bay' },
+  { image: '/images/project-hunters-hill-pool-terrace.webp', title: 'Pool & Stone Terrace', location: 'Hunters Hill', alt: 'Plunge pool and stone terrace beside a covered brick outdoor room, Hunters Hill' },
+  { image: '/images/project-taronga-zoo.webp', title: 'Garden Construction', location: 'Taronga Zoo', alt: 'Garden beds under construction with boulders and steel edging, Taronga Zoo' },
 ]
 
 export function ProjectsPage() {
   return (
     <Page title="Projects">
-      <PageHeader eyebrow="Our work" title="Our Projects" image="/images/texture-palms.jpg" alt="Palm fronds">
+      <PageHeader eyebrow="Our work" title="Our Projects" image="/images/texture-palms.webp" alt="Palm fronds">
         <p>
           At Ground Up, we specialise in bespoke landscape design and construction, creating sophisticated,
           functional outdoor spaces that complement the architecture of your property and seamlessly connect
@@ -586,7 +586,7 @@ export function ProjectsPage() {
 export function SustainabilityPage() {
   return (
     <Page title="Sustainability">
-      <PageHeader eyebrow="Sustainable design" title="Sustainability" image="/images/texture-ferns.jpg" alt="Dense green fern fronds">
+      <PageHeader eyebrow="Sustainable design" title="Sustainability" image="/images/texture-ferns.webp" alt="Dense green fern fronds">
         <p>
           We ensure that our gardens belong in a larger ecosystem, they are kind to existing flora and fauna.
         </p>
@@ -603,7 +603,7 @@ export function SustainabilityPage() {
       </PageHero>
 
       <Band tone="white">
-        <Split reverse image="/images/gabion-walls-sleeper-beds.jpg" alt="Gabion walls and timber sleeper vegetable beds, a Ground Up project">
+        <Split reverse image="/images/gabion-walls-sleeper-beds.webp" alt="Gabion walls and timber sleeper vegetable beds, a Ground Up project">
           <h2 className="font-body font-semibold text-4xl sm:text-5xl text-ink leading-[1.05] tracking-tight">
             We prefer
             <span className="block font-light italic text-primary-dark">&lsquo;abundance&rsquo;.</span>
@@ -638,7 +638,7 @@ export function SustainabilityPage() {
       </Band>
 
       <Band tone="earth">
-        <Split image="/images/texture-bamboo-leaves.jpg" alt="Sunlit bamboo leaves">
+        <Split image="/images/texture-bamboo-leaves.webp" alt="Sunlit bamboo leaves">
           <Label light>Inspiration</Label>
           <h2 className="mt-8 font-body text-2xl sm:text-3xl lg:text-4xl leading-snug text-white">
             Whether at work or play, humans experience a profound shift in wellbeing simply from the presence of
@@ -656,7 +656,7 @@ export function SustainabilityPage() {
       </Band>
 
       <Band tone="white">
-        <Split image="/images/green-wall-planting.jpg" alt="Two people tending plants on a vertical garden wall">
+        <Split image="/images/green-wall-planting.webp" alt="Two people tending plants on a vertical garden wall">
           <h2 className="font-display font-semibold text-3xl sm:text-4xl text-ink leading-[1.1] tracking-[0.2em]">
             Hospitals that heal
           </h2>
@@ -708,7 +708,7 @@ export function ContactPage() {
   return (
     <Page title="Contact">
       <section className="relative overflow-hidden bg-deep text-white px-6 sm:px-10 lg:px-16 pt-28 sm:pt-32 pb-36 sm:pb-40 -mb-24 lg:min-h-[100dvh] lg:flex lg:items-center">
-        <img src="/images/texture-dark-leaves.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" />
+        <img src="/images/texture-dark-leaves.webp" alt="" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-tr from-deep/95 via-deep/85 to-deep/65" />
 
         <div className="relative w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
@@ -761,7 +761,7 @@ export function ContactPage() {
 export function NotFoundPage() {
   return (
     <Page title="Page not found">
-      <PageHeader eyebrow="404" title="Page not found" image="/images/texture-ferns.jpg" alt="Dense green fern fronds">
+      <PageHeader eyebrow="404" title="Page not found" image="/images/texture-ferns.webp" alt="Dense green fern fronds">
         <p>Sorry, we couldn&rsquo;t find that page. It may have moved, or the link may be mistyped.</p>
         <div className="!mt-8 flex flex-wrap gap-4">
           <a

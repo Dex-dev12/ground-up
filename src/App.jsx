@@ -47,7 +47,7 @@ export const SERVICES_FULL = [
     title: 'Landscape Design',
     includes: ['Site walk and consultation', 'Concept plans: layout, materials and plants', 'Plan revisions and approval', 'Residential and commercial design'],
     text: 'We walk the site with you, then design the layout, materials and plants around your home and how you want to live outdoors.',
-    image: '/images/alfresco-pool-terrace.jpg',
+    image: '/images/alfresco-pool-terrace.webp',
   },
   {
     icon: Shovel,
@@ -55,7 +55,7 @@ export const SERVICES_FULL = [
     title: 'Landscape Construction',
     includes: ['Excavation and site preparation', 'Concrete services', 'Retaining walls', 'Driveways'],
     text: 'Excavation, concrete, retaining walls and driveways: the groundwork and structure every garden is built on.',
-    image: '/images/ground-up-workers.jpg',
+    image: '/images/ground-up-workers.webp',
   },
   {
     icon: BrickWall,
@@ -63,7 +63,7 @@ export const SERVICES_FULL = [
     title: 'Stone Masonry',
     includes: ['Sandstone walls', 'Stone retaining walls', 'Steps and stairs', 'Feature stonework'],
     text: 'Sandstone walls, steps and feature stonework, built by stone masons with real attention to detail.',
-    image: '/images/stone-retaining-wall-steps.jpg',
+    image: '/images/stone-retaining-wall-steps.webp',
   },
   {
     icon: Grid2x2,
@@ -71,7 +71,7 @@ export const SERVICES_FULL = [
     title: 'Paving & Tiling',
     includes: ['Natural stone and sandstone paving', 'Crazy paving', 'Outdoor tiling', 'Paths, courtyards and terraces'],
     text: 'Natural stone, sandstone and tiled surfaces for paths, courtyards, terraces and outdoor living areas.',
-    image: '/images/sandstone-pavers-bench.jpg',
+    image: '/images/sandstone-pavers-bench.webp',
   },
   {
     icon: Sprout,
@@ -79,7 +79,7 @@ export const SERVICES_FULL = [
     title: 'Plant Design & Horticulturist Services',
     includes: ['Planting design', 'Horticultural advice', 'Garden beds and planters', 'Plants resilient to our changing climate'],
     text: 'Planting plans from horticulturists, with plants chosen for your site, your aspect and our changing climate.',
-    image: '/images/plant-photo.jpg',
+    image: '/images/plant-photo.webp',
   },
   {
     icon: Waves,
@@ -87,12 +87,12 @@ export const SERVICES_FULL = [
     title: 'Pool Renovations & Surrounds',
     includes: ['Pool renovations', 'Pool coping and paving', 'Pool fencing', 'Surrounding walls and planting'],
     text: 'Pool renovations and the landscaping around them, so the pool, paving, walls and planting work as one space.',
-    image: '/images/pool.jpg',
+    image: '/images/pool.webp',
   },
 ]
 
 const HERO_IMAGE = {
-  src: '/images/home-page-ground-up.jpg',
+  src: '/images/home-page-ground-up.webp',
   alt: 'Modern home with timber cladding behind a natural swimming pond, a Ground Up project',
 }
 
@@ -803,7 +803,7 @@ function Features() {
         {/* Image */}
         <div className="feature-card relative overflow-hidden rounded-5xl aspect-[4/5] shadow-xl shadow-primary/10">
           <img
-            src="/images/outdoor-living-studio-courtyard.jpg"
+            src="/images/outdoor-living-studio-courtyard.webp"
             alt="Sandstone paved courtyard with a built-in bench and garden beds beside a dark clad studio"
             className="absolute inset-0 h-full w-full object-cover"
             loading="lazy"
@@ -840,7 +840,7 @@ function ComplexLandscaping() {
         {/* Image */}
         <div className="complex-reveal relative overflow-hidden rounded-5xl aspect-[4/5] shadow-2xl shadow-black/20 order-2 lg:order-1">
           <img
-            src="/images/complex-landscaping-fern-wall.jpg"
+            src="/images/complex-landscaping-fern-wall.webp"
             alt="Lush staghorn ferns and tropical planting above a stone water feature"
             className="absolute inset-0 h-full w-full object-cover"
             loading="lazy"
@@ -1129,7 +1129,7 @@ export function Protocol() {
       title: 'Design & Concept',
       tagline: 'We listen first.',
       text: 'We walk the site with you, understand your needs, and share initial solution ideas.',
-      image: '/images/project-paddington-courtyard.jpg',
+      image: '/images/project-paddington-courtyard.webp',
       alt: 'Narrow courtyard with a tree, climbing green wall and stepping stones, Paddington',
       meta: 'Step 1 / Consult',
     },
@@ -1138,7 +1138,7 @@ export function Protocol() {
       title: 'Concept & Documentation',
       tagline: 'We draft the vision.',
       text: 'We draft a concept plan based on the ideas shared in our initial consult that includes layout, materials and plants.',
-      image: '/images/sandstone-wall-crazy-paving.jpg',
+      image: '/images/sandstone-wall-crazy-paving.webp',
       alt: 'Crazy paving beneath a sandstone block wall, a Ground Up project',
       meta: 'Step 2 / Plan',
     },
@@ -1147,7 +1147,7 @@ export function Protocol() {
       title: 'Refinement & Approval',
       tagline: 'We build it together.',
       text: 'We revise the draft with you and get feedback before progressing onto landscape plan approval. Constant feedback is crucial to customer satisfaction, therefore, this step is one of the most important.',
-      image: '/images/refinement-pool-glass-fence.jpg',
+      image: '/images/refinement-pool-glass-fence.webp',
       alt: 'Pool with glass fencing, stone paving and a new garden bed, a completed Ground Up project',
       meta: 'Step 3 / Approve',
     },

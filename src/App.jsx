@@ -308,13 +308,13 @@ function Hero() {
           </div>
           <h1 className="font-body text-white">
             <span className="hero-line-1 block font-normal text-4xl sm:text-5xl md:text-6xl tracking-[0.02em] leading-[1.1]">
-              We connect home to garden,
+              Connecting home,
             </span>
             <span
-              className="hero-line-2 block font-display font-light text-white text-3xl sm:text-5xl md:text-6xl tracking-[0.12em] mt-3 sm:mt-4"
+              className="hero-line-2 block font-display font-light text-white text-[1.35rem] sm:text-4xl md:text-5xl tracking-[0.1em] text-balance mt-3 sm:mt-4"
               style={{ lineHeight: '1.05' }}
             >
-              nature to family.
+              garden, and nature
             </span>
           </h1>
 
@@ -793,7 +793,7 @@ function Features() {
               outdoor space.
             </p>
             <p>
-              We connect home to garden, nature to family and comfort to entertaining. Our team of architects,
+              Connecting home, garden, and nature, with comfort for entertaining. Our team of architects,
               designers, structural landscapers, stone masons, carpenters, and horticulturists are dedicated to
               delivering amazing gardens in every Sydney Project.
             </p>

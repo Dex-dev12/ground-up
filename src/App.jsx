@@ -307,7 +307,7 @@ function Hero() {
             />
           </div>
           <h1 className="font-body text-white">
-            <span className="hero-line-1 block font-normal text-4xl sm:text-5xl md:text-6xl tracking-[0.02em] leading-[1.1]">
+            <span className="hero-line-1 block font-display font-light text-white text-[1.35rem] sm:text-4xl md:text-5xl tracking-[0.1em] text-balance" style={{ lineHeight: '1.05' }}>
               Connecting home,
             </span>
             <span

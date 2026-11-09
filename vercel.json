@@ -1,3 +1,15 @@
 {
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/landscaping-and-horticulturist-services", "destination": "/services", "permanent": true },
+    { "source": "/luxury-landscaping", "destination": "/services", "permanent": true },
+    { "source": "/thank-you", "destination": "/contact", "permanent": true },
+    { "source": "/testimonial/:path*", "destination": "/about", "permanent": true },
+    { "source": "/our_projects/:path*", "destination": "/projects", "permanent": true },
+    { "source": "/projects_launch/:path*", "destination": "/projects", "permanent": true },
+    { "source": "/home_slider/:path*", "destination": "/", "permanent": true },
+    { "source": "/sitemap_index.xml", "destination": "/sitemap.xml", "permanent": true },
+    { "source": "/:name(.*)-sitemap.xml", "destination": "/sitemap.xml", "permanent": true }
+  ],
   "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }

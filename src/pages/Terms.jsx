@@ -85,8 +85,8 @@ export default function Terms() {
             <h2 className="font-display font-bold text-2xl text-ink mb-3">6. Contact</h2>
             <p>
               Questions about these terms can be directed to{' '}
-              <a href="mailto:hello@groundup-landscaping.com.au" className="text-primary hover:text-primary-dark transition-colors">
-                hello@groundup-landscaping.com.au
+              <a href="mailto:info@ground-up.com.au" className="text-primary hover:text-primary-dark transition-colors">
+                info@ground-up.com.au
               </a>{' '}
               or{' '}
               <a href="tel:+61428978887" className="text-primary hover:text-primary-dark transition-colors">

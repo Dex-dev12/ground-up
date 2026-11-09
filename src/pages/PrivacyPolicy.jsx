@@ -76,8 +76,8 @@ export default function PrivacyPolicy() {
             <p>
               You may request access to, correction of, or deletion of your personal information
               at any time by contacting us at{' '}
-              <a href="mailto:hello@groundup-landscaping.com.au" className="text-primary hover:text-primary-dark transition-colors">
-                hello@groundup-landscaping.com.au
+              <a href="mailto:info@ground-up.com.au" className="text-primary hover:text-primary-dark transition-colors">
+                info@ground-up.com.au
               </a>.
             </p>
           </section>

@@ -9,7 +9,6 @@ import {
   Clock,
   ArrowUpRight,
   ArrowRight,
-  CheckCircle2,
   Leaf,
   Shovel,
   PencilRuler,
@@ -19,7 +18,6 @@ import {
   Droplet,
   Menu,
   X,
-  Upload,
   ArrowDown,
   BrickWall,
   Grid2x2,
@@ -1529,215 +1527,94 @@ export function WhyGroundUp() {
 /* ----------------------------------------------------------------
    Contact Form
 ---------------------------------------------------------------- */
+// Native GoHighLevel form ("Ground Up" sub-account), embedded so enquiries go
+// straight into GHL. Styled to match the site via the form's Custom CSS in GHL.
+const GHL_FORM_ID = 'CIGzXo1KDehRhJsOAYgq'
+const GHL_FORM_URL = `https://links.versflows.com/widget/form/${GHL_FORM_ID}`
+const GHL_EMBED_SCRIPT = 'https://links.versflows.com/js/form_embed.js'
+
+let ghlEmbedLoad
+function loadGhlEmbedScript() {
+  if (!ghlEmbedLoad) {
+    ghlEmbedLoad = new Promise((resolve) => {
+      const script = document.createElement('script')
+      script.src = GHL_EMBED_SCRIPT
+      script.onload = resolve
+      script.onerror = resolve
+      document.body.appendChild(script)
+    })
+  }
+  return ghlEmbedLoad
+}
+
 export function EnquiryForm({ compact = false }) {
-  const [form, setForm] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    suburb: '',
-    projectType: '',
-    message: '',
-  })
-  const [files, setFiles] = useState([])
-  const [status, setStatus] = useState('idle') // idle | sending | sent | error
-  const dropRef = useRef(null)
-  const fileInputRef = useRef(null)
+  const [loaded, setLoaded] = useState(false)
+  const wrapRef = useRef(null)
 
-  // Keep the real file input in sync with the chosen photos (clicked or dropped),
-  // so GoHighLevel's tracking script sends every photo with the enquiry.
   useEffect(() => {
-    const input = fileInputRef.current
-    if (!input || typeof DataTransfer === 'undefined') return
-    const dt = new DataTransfer()
-    files.forEach((f) => dt.items.add(f))
-    input.files = dt.files
-  }, [files])
+    loadGhlEmbedScript()
+  }, [])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (!form.firstName || !form.email || !form.message) return
-    setStatus('sending')
-    // Simulated submission
-    setTimeout(() => setStatus('sent'), 1200)
-  }
-
-  const handleFiles = (newFiles) => {
-    setFiles((prev) => [...prev, ...Array.from(newFiles)].slice(0, 5))
-  }
+  // The form grows and shrinks as GHL resizes it; let ScrollTrigger re-measure
+  useEffect(() => {
+    const el = wrapRef.current
+    if (!el || typeof ResizeObserver === 'undefined') return
+    let timer
+    const ro = new ResizeObserver(() => {
+      clearTimeout(timer)
+      timer = setTimeout(() => ScrollTrigger.refresh(), 300)
+    })
+    ro.observe(el)
+    return () => {
+      clearTimeout(timer)
+      ro.disconnect()
+    }
+  }, [])
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={`bg-surface border border-divider rounded-5xl shadow-xl shadow-primary/5 ${compact ? 'p-6 sm:p-7' : 'p-7 sm:p-10'}`}
+    <div
+      ref={wrapRef}
+      className={`relative bg-surface border border-divider rounded-5xl shadow-xl shadow-primary/5 overflow-hidden ${compact ? 'px-2 py-4 sm:p-4' : 'px-3 py-5 sm:p-6'}`}
     >
-      {status !== 'sent' ? (
-        <>
-          <div className={`grid sm:grid-cols-2 ${compact ? 'gap-4' : 'gap-5'}`}>
-            <Field
-              label="First name"
-              name="first_name"
-              autoComplete="given-name"
-              compact={compact}
-              required
-              value={form.firstName}
-              onChange={(v) => setForm({ ...form, firstName: v })}
-            />
-            <Field
-              label="Last name"
-              name="last_name"
-              autoComplete="family-name"
-              compact={compact}
-              value={form.lastName}
-              onChange={(v) => setForm({ ...form, lastName: v })}
-            />
-            <Field
-              label="Email address"
-              name="email"
-              autoComplete="email"
-              compact={compact}
-              type="email"
-              required
-              value={form.email}
-              onChange={(v) => setForm({ ...form, email: v })}
-            />
-            <Field
-              label="Phone number"
-              name="phone"
-              autoComplete="tel"
-              compact={compact}
-              type="tel"
-              value={form.phone}
-              onChange={(v) => setForm({ ...form, phone: v })}
-            />
-            <Field
-              label="Project location"
-              name="project_location"
-              autoComplete="address-level2"
-              compact={compact}
-              value={form.suburb}
-              onChange={(v) => setForm({ ...form, suburb: v })}
-            />
-            <div>
-              <label htmlFor="enquiry-project_type" className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-2 block">
-                Project type
-              </label>
-              <select
-                name="project_type"
-                id="enquiry-project_type"
-                value={form.projectType}
-                onChange={(e) => setForm({ ...form, projectType: e.target.value })}
-                className={`w-full bg-background border border-divider rounded-2xl px-4 ${compact ? 'py-2.5' : 'py-3.5'} text-ink focus:border-primary focus:ring-4 focus:ring-primary/15 outline-none transition font-body appearance-none`}
-              >
-                <option value="">Select a project type</option>
-                {SERVICES_FULL.map((svc) => (
-                  <option key={svc.slug} value={svc.title}>
-                    {svc.title}
-                  </option>
-                ))}
-                <option value="Something else">Something else</option>
-              </select>
-            </div>
+      {!loaded && (
+        <div aria-hidden="true" className="absolute inset-0 p-6 sm:p-7 animate-pulse">
+          <div className="grid grid-cols-2 gap-4">
+            {[0, 1, 2, 3].map((i) => (
+              <div key={i}>
+                <div className="h-2.5 w-20 rounded bg-divider/70 mb-2.5" />
+                <div className="h-11 rounded-2xl bg-background" />
+              </div>
+            ))}
           </div>
-
-          <div className={compact ? 'mt-4' : 'mt-5'}>
-            <label className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-2 block">
-              Your message *
-            </label>
-            <textarea
-              name="message"
-              value={form.message}
-              onChange={(e) => setForm({ ...form, message: e.target.value })}
-              required
-              rows={compact ? 3 : 5}
-              placeholder="Tell us about your site, timeline and vision..."
-              className={`w-full bg-background border border-divider rounded-2xl px-4 ${compact ? 'py-2.5' : 'py-3.5'} text-ink placeholder-muted/60 focus:border-primary focus:ring-4 focus:ring-primary/15 outline-none transition resize-none font-body`}
-            />
-          </div>
-
-          {/* File upload zone */}
-          <div
-            ref={dropRef}
-            onDragOver={(e) => {
-              e.preventDefault()
-              dropRef.current?.classList.add('!border-primary', '!bg-primary/5')
-            }}
-            onDragLeave={() => {
-              dropRef.current?.classList.remove('!border-primary', '!bg-primary/5')
-            }}
-            onDrop={(e) => {
-              e.preventDefault()
-              dropRef.current?.classList.remove('!border-primary', '!bg-primary/5')
-              handleFiles(e.dataTransfer.files)
-            }}
-            className={`border-2 border-dashed border-divider rounded-3xl text-center hover:border-primary/50 transition-colors cursor-pointer ${compact ? 'mt-4 px-4 py-3' : 'mt-5 p-6'}`}
-          >
-            <input
-              type="file"
-              multiple
-              ref={fileInputRef}
-              id="file-up"
-              name="upload"
-              className="sr-only"
-              onChange={(e) => handleFiles(e.target.files)}
-              accept="image/*"
-            />
-            <label htmlFor="file-up" className="cursor-pointer block">
-              <span className={compact ? 'flex items-center justify-center gap-3' : 'block'}>
-                <Upload className={`h-6 w-6 text-primary-dark ${compact ? '' : 'mx-auto mb-2'}`} />
-                <span className={compact ? 'text-left' : 'block'}>
-                  <span className="block font-display font-semibold text-ink text-sm">
-                    Attach photos of your site
-                  </span>
-                  <span className="block text-xs text-muted mt-1">
-                    Click or drag files here (max 5 images)
-                  </span>
-                </span>
-              </span>
-              {files.length > 0 && (
-                <div className="mt-4 flex flex-wrap gap-2 justify-center">
-                  {files.map((f, i) => (
-                    <span
-                      key={i}
-                      className="inline-flex items-center gap-1.5 bg-primary/10 text-primary-dark text-xs px-3 py-1.5 rounded-full font-mono"
-                    >
-                      <CheckCircle2 className="h-3 w-3" />
-                      {f.name.length > 22 ? f.name.slice(0, 22) + '…' : f.name}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </label>
-          </div>
-
-          <div className={`${compact ? 'mt-5' : 'mt-7'} flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4`}>
-            <p className="text-xs text-muted">
-              We'll get back to you shortly. Fields marked * are required.
-            </p>
-            <button
-              type="submit"
-              disabled={status === 'sending'}
-              className="magnetic-btn inline-flex items-center gap-2 bg-primary text-white font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-primary/30 disabled:opacity-50"
-            >
-              {status === 'sending' ? 'Sending...' : 'Send Enquiry'}
-              <ArrowRight className="h-4 w-4" />
-            </button>
-          </div>
-        </>
-      ) : (
-        <div className="text-center py-12">
-          <div className="h-16 w-16 mx-auto rounded-full bg-primary/15 flex items-center justify-center mb-6">
-            <CheckCircle2 className="h-8 w-8 text-primary-dark" />
-          </div>
-          <h3 className="font-display font-bold text-2xl text-ink mb-3">
-            Thanks for reaching out
-          </h3>
-          <p className="text-muted max-w-md mx-auto">
-            We'll be in touch shortly to arrange your site visit.
-          </p>
+          <div className="mt-5 h-2.5 w-24 rounded bg-divider/70 mb-2.5" />
+          <div className="h-11 rounded-2xl bg-background" />
+          <div className="mt-5 h-2.5 w-20 rounded bg-divider/70 mb-2.5" />
+          <div className="h-24 rounded-2xl bg-background" />
+          <div className="mt-5 h-24 rounded-3xl border-2 border-dashed border-divider" />
         </div>
       )}
-    </form>
+      <iframe
+        src={GHL_FORM_URL}
+        id={`inline-${GHL_FORM_ID}`}
+        data-layout="{'id':'INLINE'}"
+        data-trigger-type="alwaysShow"
+        data-trigger-value=""
+        data-activation-type="alwaysActivated"
+        data-activation-value=""
+        data-deactivation-type="neverDeactivate"
+        data-deactivation-value=""
+        data-form-name="Ground UP website Form"
+        data-height="917"
+        data-layout-iframe-id={`inline-${GHL_FORM_ID}`}
+        data-form-id={GHL_FORM_ID}
+        data-cookie-consent="true"
+        data-cookie-consent-provider="auto"
+        title="Ground UP website Form"
+        onLoad={() => setLoaded(true)}
+        className={`relative block w-full border-0 transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        style={{ minHeight: loaded ? 0 : 600, borderRadius: 8 }}
+      />
+    </div>
   )
 }
 
@@ -1844,26 +1721,6 @@ export function ContactForm() {
         </div>
       </div>
     </section>
-  )
-}
-
-function Field({ label, name, type = 'text', required, value, onChange, compact, autoComplete }) {
-  return (
-    <div>
-      <label htmlFor={`enquiry-${name}`} className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-2 block">
-        {label} {required && '*'}
-      </label>
-      <input
-        type={type}
-        name={name}
-        id={`enquiry-${name}`}
-        autoComplete={autoComplete}
-        required={required}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className={`w-full bg-background border border-divider rounded-2xl px-4 ${compact ? 'py-2.5' : 'py-3.5'} text-ink placeholder-muted/60 focus:border-primary focus:ring-4 focus:ring-primary/15 outline-none transition font-body`}
-      />
-    </div>
   )
 }
 

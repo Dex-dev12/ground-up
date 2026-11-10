@@ -1531,7 +1531,8 @@ export function WhyGroundUp() {
 ---------------------------------------------------------------- */
 export function EnquiryForm({ compact = false }) {
   const [form, setForm] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     phone: '',
     suburb: '',
@@ -1541,10 +1542,21 @@ export function EnquiryForm({ compact = false }) {
   const [files, setFiles] = useState([])
   const [status, setStatus] = useState('idle') // idle | sending | sent | error
   const dropRef = useRef(null)
+  const fileInputRef = useRef(null)
+
+  // Keep the real file input in sync with the chosen photos (clicked or dropped),
+  // so GoHighLevel's tracking script sends every photo with the enquiry.
+  useEffect(() => {
+    const input = fileInputRef.current
+    if (!input || typeof DataTransfer === 'undefined') return
+    const dt = new DataTransfer()
+    files.forEach((f) => dt.items.add(f))
+    input.files = dt.files
+  }, [files])
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!form.name || !form.email || !form.message) return
+    if (!form.firstName || !form.email || !form.message) return
     setStatus('sending')
     // Simulated submission
     setTimeout(() => setStatus('sent'), 1200)
@@ -1563,14 +1575,26 @@ export function EnquiryForm({ compact = false }) {
         <>
           <div className={`grid sm:grid-cols-2 ${compact ? 'gap-4' : 'gap-5'}`}>
             <Field
-              label="Name"
+              label="First name"
+              name="first_name"
+              autoComplete="given-name"
               compact={compact}
               required
-              value={form.name}
-              onChange={(v) => setForm({ ...form, name: v })}
+              value={form.firstName}
+              onChange={(v) => setForm({ ...form, firstName: v })}
+            />
+            <Field
+              label="Last name"
+              name="last_name"
+              autoComplete="family-name"
+              compact={compact}
+              value={form.lastName}
+              onChange={(v) => setForm({ ...form, lastName: v })}
             />
             <Field
               label="Email address"
+              name="email"
+              autoComplete="email"
               compact={compact}
               type="email"
               required
@@ -1579,6 +1603,8 @@ export function EnquiryForm({ compact = false }) {
             />
             <Field
               label="Phone number"
+              name="phone"
+              autoComplete="tel"
               compact={compact}
               type="tel"
               value={form.phone}
@@ -1586,29 +1612,32 @@ export function EnquiryForm({ compact = false }) {
             />
             <Field
               label="Project location"
+              name="project_location"
+              autoComplete="address-level2"
               compact={compact}
               value={form.suburb}
               onChange={(v) => setForm({ ...form, suburb: v })}
             />
-          </div>
-
-          <div className={compact ? 'mt-4' : 'mt-5'}>
-            <label className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-2 block">
-              Project type
-            </label>
-            <select
-              value={form.projectType}
-              onChange={(e) => setForm({ ...form, projectType: e.target.value })}
-              className={`w-full bg-background border border-divider rounded-2xl px-4 ${compact ? 'py-2.5' : 'py-3.5'} text-ink focus:border-primary focus:ring-4 focus:ring-primary/15 outline-none transition font-body appearance-none`}
-            >
-              <option value="">Select a project type</option>
-              {SERVICES_FULL.map((svc) => (
-                <option key={svc.slug} value={svc.slug}>
-                  {svc.title}
-                </option>
-              ))}
-              <option value="other">Something else</option>
-            </select>
+            <div>
+              <label htmlFor="enquiry-project_type" className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-2 block">
+                Project type
+              </label>
+              <select
+                name="project_type"
+                id="enquiry-project_type"
+                value={form.projectType}
+                onChange={(e) => setForm({ ...form, projectType: e.target.value })}
+                className={`w-full bg-background border border-divider rounded-2xl px-4 ${compact ? 'py-2.5' : 'py-3.5'} text-ink focus:border-primary focus:ring-4 focus:ring-primary/15 outline-none transition font-body appearance-none`}
+              >
+                <option value="">Select a project type</option>
+                {SERVICES_FULL.map((svc) => (
+                  <option key={svc.slug} value={svc.title}>
+                    {svc.title}
+                  </option>
+                ))}
+                <option value="Something else">Something else</option>
+              </select>
+            </div>
           </div>
 
           <div className={compact ? 'mt-4' : 'mt-5'}>
@@ -1616,6 +1645,7 @@ export function EnquiryForm({ compact = false }) {
               Your message *
             </label>
             <textarea
+              name="message"
               value={form.message}
               onChange={(e) => setForm({ ...form, message: e.target.value })}
               required
@@ -1645,8 +1675,10 @@ export function EnquiryForm({ compact = false }) {
             <input
               type="file"
               multiple
+              ref={fileInputRef}
               id="file-up"
-              className="hidden"
+              name="upload"
+              className="sr-only"
               onChange={(e) => handleFiles(e.target.files)}
               accept="image/*"
             />
@@ -1815,14 +1847,17 @@ export function ContactForm() {
   )
 }
 
-function Field({ label, type = 'text', required, value, onChange, compact }) {
+function Field({ label, name, type = 'text', required, value, onChange, compact, autoComplete }) {
   return (
     <div>
-      <label className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-2 block">
+      <label htmlFor={`enquiry-${name}`} className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted mb-2 block">
         {label} {required && '*'}
       </label>
       <input
         type={type}
+        name={name}
+        id={`enquiry-${name}`}
+        autoComplete={autoComplete}
         required={required}
         value={value}
         onChange={(e) => onChange(e.target.value)}
